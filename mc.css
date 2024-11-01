@@ -1,0 +1,416 @@
+  *{
+    padding:0;
+    margin:0;
+  }
+  body {
+    background-color:#444;
+    touch-action: manipulation;
+  }
+  .bloque {
+    display: inline-block;
+  }
+  td.text {
+    color: #ddd;
+    background-color: transparent;
+    border: none;
+    font-family: "Courier New",Courier,monospace;
+    width: 100px;
+    font-size: 1.2em;
+  }
+  select {
+    color: #ddd;
+    background-color: #404040;
+    border: 1px solid #606060;
+    font-family: "Courier New",Courier,monospace;
+    width: 100px;
+    font-size: 1.2em;
+  }
+  input[type=text],
+  input[type=number] {
+    color: #ddd;
+    background-color: transparent;
+    border: 1px solid #404040;
+    font-family: "Courier New",Courier,monospace;
+    width: 100px;
+    font-size: 1.2em;
+  }
+  input[type=text],
+  input[type=number] {
+    text-align: center;
+  }
+  /*input[type=text].chico,
+  input[type=number].chico {
+    width: 60px;
+  }*/
+  input[type=text],
+  input[type=number] {
+    box-sizing : border-box;
+    width: 100%;
+  }
+
+  /*button {
+    color: #ddd;
+    background-color: #333;
+    font-family: "Courier New",Courier,monospace;
+    font-size: 1.2em;
+    margin: 5px;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #633;
+  }*/
+  td.text {
+    text-align: right;
+  }
+  .right {
+    text-align: right;
+  }
+  .exterior {
+    border: 1px solid #666;
+    padding:0;
+    margin:0;
+    background: #222;
+    vertical-align: top;
+  }
+  .exterior div {
+    vertical-align: top;
+  }
+  tr,td {
+    padding:0;
+    margin:0;
+  }
+  /*table.interior td:nth-child(6) {
+    padding-right: 20px;
+  }*/
+  table.interior td:nth-child(1) {
+    text-align: right !important;
+    /*padding-left: 20px;*/
+  }
+  .oculto {
+    height: 0px;
+    overflow: auto;
+  }
+
+  table.playvolvel {
+    width: 98%;
+    margin-top: 12px;
+  }
+  table.playvolvel td {
+    text-align: center;
+  }
+  .butconf {
+    width: 100%;
+    padding:3px;
+  }
+  .inpcpm {
+    border: none;
+    background-color: #333;
+    padding: 0;
+    line-height: 100%;
+  }
+  .inpclave {
+    width: 98%;
+    margin: 0 auto;
+  }
+  #clave {
+    background-color:#404040;
+  }
+
+  .rs {
+    border: 1px solid #666;
+    resize: both;
+    overflow: hidden;
+    width: 500px;
+    height: 500px;
+  }
+  .ts {
+    max-width: 500px;
+    overflow: auto;
+  }
+  @media (max-width : 640px) {
+    .rs {
+      width: 100%;
+      height: 99vw;
+    }
+    .ts {
+      max-width: 100vw;
+    }
+  }
+
+  #canvas {
+    background-color:transparent;
+    height: inherit;
+  }
+  .fondo {
+    background: #222;
+  }
+  .fondo1 {
+    background: #333;
+  }
+  .fondo2 {
+    background: #444;
+  }
+
+  table.cuadricula {
+    width: 98%;
+    margin: 0 auto;
+    /* width: 100%; */
+  }
+  table.cuadricula td {
+    width: 16.6%;
+    text-align: center !important;
+  }
+  .tblvermas {
+    width:96%;
+    margin: 0 auto;
+  }
+  .tdplaysync {
+    text-align:center;
+    padding:20px;
+  }
+  .bg101010 {
+    background: #101010;
+  }
+  .divmodal {
+    background-color: #202020 !important; 
+    max-width: 500px;
+  }
+  .nomarpad {
+    margin:0;padding:0;
+  }
+  .bordegris {
+    border: 1px solid #606060;
+  }
+  .tblgolpes {
+    width:100%;
+    max-width: 400px; 
+    margin:0 auto;
+  }
+  .width-92 {
+    width: 92% !important;
+  }
+  .width-30 {
+    width: 30% !important;
+  }
+  .width-70 {
+    width: 70% !important;
+  }
+
+  /*STYLED CHECKBOX*/
+   /* Customize the label (the container) */
+  .container {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 25px !important;
+    height: 25px !important;
+    border: 2px solid #aaa;
+  }
+
+  /* Hide the browser's default checkbox */
+  .container input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #a88;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #44cc00;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  } 
+  /*----- RANGOS -----*/
+  input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    background: #222;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 18px;
+    cursor: pointer;
+    background: #5a5a5a;
+    border-radius: 25px;
+    border: 2.3px solid #464646;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #6e6e6e;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 18px;
+    cursor: pointer;
+    background: #5a5a5a;
+    border-radius: 25px;
+    border: 2.3px solid #464646;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 18px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #464646;
+    border: 2.3px solid #464646;
+    border-radius: 50px;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #5a5a5a;
+    border: 2.3px solid #464646;
+    border-radius: 50px;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #5a5a5a;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #6e6e6e;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    border: 7px solid #7d7d7d;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    background: #414141;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -8.3px;
+  }
+  input[type=range]::-moz-range-thumb {
+    border: 7px solid #7d7d7d;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    background: #414141;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-thumb {
+    border: 7px solid #7d7d7d;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    background: #414141;
+    cursor: pointer;
+    height: 18px;
+  }
+
+
+  /* VErtical slider */
+  input[type=range].vertical {
+    -webkit-appearance: none;
+    height: 100px;
+    width: 18px;
+    writing-mode: bt-lr;
+    /* IE */
+    -webkit-appearance: slider-vertical;
+    /* WebKit */
+  }
+
+  input[type=range].vertical::-webkit-slider-runnable-track {
+    height: 100%;
+    width: 9px;
+  }
+  input[type=range].vertical:focus::-webkit-slider-runnable-track {
+    background: #6e6e6e;
+  }
+  input[type=range].vertical::-moz-range-track {
+    height: 100%;
+    width: 9px;
+  }
+  input[type=range].vertical::-ms-track {
+    height: 100%;
+    width: 9px;
+  }
+  input[type=range].vertical::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+  }
+  input[type=range].vertical::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+  }
+  input[type=range].vertical::-ms-thumb {
+    height: 15px;
+    width: 15px;
+  }
+
+
+  input[type=range].small::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 9px;
+  }
+  input[type=range].small:focus::-webkit-slider-runnable-track {
+    background: #6e6e6e;
+  }
+  input[type=range].small::-moz-range-track {
+    width: 100%;
+    height: 9px;
+  }
+  input[type=range].small::-ms-track {
+    width: 100%;
+    height: 9px;
+  }
+  input[type=range].small::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+  }
+  input[type=range].small::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+  }
+  input[type=range].small::-ms-thumb {
+    height: 15px;
+    width: 15px;
+  }

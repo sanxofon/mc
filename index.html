@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<!-- Search Engine -->
+<meta name="description" content="Metrónomo irregular polirrítmico">
+<meta name="image" content="/mc/img/metronomo_705x368.png">
+<meta name="author" content="Santiago Chávez Novaro">
+<link rel="manifest" href="/mc/manifest.webmanifest">
+<title>Metrónomo irregular polirrítmico</title>
+<meta name="theme-color" content="#202020" />
+<!-- Allow web app to be run in full-screen mode. -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Metrónomo polirrítmico">
+<meta name="apple-mobile-web-app-title" content="Metrónomo polirrítmico">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon" href="/mc/img/launcher-icon-4x.png">
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Metrónomo irregular polirrítmico">
+<meta name="og:description" content="Metrónomo irregular polirrítmico en línea, gratuito y libre. Sin anuncios.">
+<meta name="og:image" content="/mc/img/metronomo.png">
+<meta name="og:url" content="https://sanxofon.github.io/mc/">
+<meta name="og:site_name" content="La Lengua">
+<meta name="og:locale" content="es_MX">
+<meta name="og:type" content="website">
+<meta name="website:author" content="Santiago Chávez Novaro">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Metrónomo polirrítmico">
+<meta itemprop="description" content="Metrónomo irregular polirrítmico en línea, gratuito y libre. Sin anuncios.">
+<meta itemprop="image" content="/mc/img/metronomo.png">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Metrónomo polirrítmico">
+<meta name="twitter:description" content="Metrónomo irregular polirrítmico en línea, gratuito y libre. Sin anuncios.">
+<meta name="twitter:site" content="@grupolalengua">
+<meta name="twitter:creator" content="@sanxofon">
+<meta name="twitter:image:src" content="https://sanxofon.github.io/mc/img/metronomo.png">
+
+<!-- Disable automatic phone number detection. -->
+<meta name="format-detection" content="telephone=no">
+<!-- FAVICON -->
+<link rel="shortcut icon" href="/mc/favicon.png" type="image/png">
+<link rel="icon" href="/mc/favicon.png" type="image/png">
+<!-- STYLES -->
+<link rel="stylesheet" type="text/css" href="./w3.css">
+<link rel="stylesheet" type="text/css" href="./mc.css">
+</head>
+<body>
+<div class="exterior bloque">
+  <div class="bloque rs" id="canvasResizer">
+      <canvas id="canvas" width="800" height="800"></canvas>
+  </div>
+  <div class="bloque ts">
+    <table class="playvolvel">
+      <tr>
+        <td colspan="2">
+          <button type="button" id="playButton" class="width-92 w3-xlarge w3-button w3-green w3-round">Play</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="w3-text-grey">
+          <br><br><input title="Volumen" class="width-92" type="range" id="vol" min="0" max="1" step="0.05"><br>Volumen general<br>
+        </td>
+        <td><button type="button" title="Configuración" onclick="document.getElementById('canal-modal').style.display='block';" class="butconf w3-button w3-round-xlarge w3-grey"><img alt="Configuración" src="/mc/img/cog.png" width="100%"></i></button></td>
+      </tr>
+      <tr>
+        <td class="w3-text-grey">
+          <br><input title="Compases por minuto range" class="width-92 small" type="range" id="cpmslide" step="0.1" min="10" max="60"><br>Compases Por Minuto<br>
+        </td>
+        <td width="80"><input title="Compases por minuto input" class="w3-xlarge" type="number" id="cpm" step="0.1" min="1" max="90" class="inpcpm"></td>
+      </tr>
+    </table>
+
+    <div class="inpclave"><input title="Aquí se ve la Clave u Operación de Claves" type="text" id="clave" value="" class="small" onchange="doClave();"></div>
+    
+    <table class="cuadricula">
+      <tr class="w3-large fondo1">
+        <td><label class="container"><input title="Activo 1" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+        <td><label class="container"><input title="Activo 2" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+        <td><label class="container"><input title="Activo 3" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+        <td><label class="container"><input title="Activo 4" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+        <td><label class="container"><input title="Activo 5" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+        <td class="text w3-medium">Activo</td>
+      </tr>
+      <tr class="w3-large">
+        <td><input title="Número 1" class="nmax" type="number" min="0" max="64"></td>
+        <td><input title="Número 2" class="nmax" type="number" min="0" max="64"></td>
+        <td><input title="Número 3" class="nmax" type="number" min="0" max="64"></td>
+        <td><input title="Número 4" class="nmax" type="number" min="0" max="64"></td>
+        <td><input title="Número 5" class="nmax" type="number" min="0" max="64"></td>
+        <td class="text w3-medium">Número</td>
+      </tr>
+      <tr class="w3-large fondo1">
+        <td><input title="BMP 1" class="bpm" type="text" readonly="readonly"></td>
+        <td><input title="BMP 2" class="bpm" type="text" readonly="readonly"></td>
+        <td><input title="BMP 3" class="bpm" type="text" readonly="readonly"></td>
+        <td><input title="BMP 4" class="bpm" type="text" readonly="readonly"></td>
+        <td><input title="BMP 5" class="bpm" type="text" readonly="readonly"></td>
+        <td class="text w3-medium">BPM</td>
+      </tr>
+      <tr class="w3-large">
+        <td><input title="Pulso 1" class="pulso" type="text" readonly="readonly"></td>
+        <td><input title="Pulso 2" class="pulso" type="text" readonly="readonly"></td>
+        <td><input title="Pulso 3" class="pulso" type="text" readonly="readonly"></td>
+        <td><input title="Pulso 4" class="pulso" type="text" readonly="readonly"></td>
+        <td><input title="Pulso 5" class="pulso" type="text" readonly="readonly"></td>
+        <td class="text w3-medium">Pulso</td>
+      </tr>
+      <tr class="w3-large fondo1">
+        <td><input title="Volumen 1" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+        <td><input title="Volumen 2" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+        <td><input title="Volumen 3" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+        <td><input title="Volumen 4" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+        <td><input title="Volumen 5" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+        <td class="text w3-medium">Vol</td>
+      </tr>
+      <tr class="w3-large">
+        <td><input title="Octava 1" class="octava" type="number" min="0" max="10" step="1"></td>
+        <td><input title="Octava 2" class="octava" type="number" min="0" max="10" step="1"></td>
+        <td><input title="Octava 3" class="octava" type="number" min="0" max="10" step="1"></td>
+        <td><input title="Octava 4" class="octava" type="number" min="0" max="10" step="1"></td>
+        <td><input title="Octava 5" class="octava" type="number" min="0" max="10" step="1"></td>
+        <td class="text w3-medium">Octava</td>
+      </tr>
+      <tr class="w3-large fondo1">
+        <td><input title="Tipo 1" class="tipbip" type="number" min=0 max=3 step=1></td>
+        <td><input title="Tipo 2" class="tipbip" type="number" min=0 max=3 step=1></td>
+        <td><input title="Tipo 3" class="tipbip" type="number" min=0 max=3 step=1></td>
+        <td><input title="Tipo 4" class="tipbip" type="number" min=0 max=3 step=1></td>
+        <td><input title="Tipo 5" class="tipbip" type="number" min=0 max=3 step=1></td>
+        <td class="text w3-medium">Tipo</td>
+      </tr>
+    </table>
+
+    <div class="w3-text-white w3-center w3-small"><a href="javascript:void(0);" class="w3-text-grey" onclick="toggleClass('vermas','oculto');">Opciones avanzadas</a></div>
+    <div class="oculto" id="vermas">
+      <table class="tblvermas">
+        <tr class="w3-large">
+          <td class="text w3-small" title="Compás #">Co:<input title="Compás #" type="number" id="compas" step=1 class="width-70"></td>
+          <td class="text w3-small" title="CPM Real">CR: <input title="CPM Real" type="text" id="cpmr" readonly="readonly" class="width-70"></td>
+        </tr>
+        <tr class="w3-large">
+          <td class="text w3-small" title="Micropulso imperceptible">Ss:&nbsp;<input title="Micropulso imperceptible" type="text" id="segs" min="1" max="240" step="1.000" readonly="readonly" class="width-70"></td>
+          <td class="text w3-small" title="Intervalo de tiempo mínimo">Ti:&nbsp;<input title="Intervalo de tiempo mínimo" type="text" id="ti" step="1.000" readonly="readonly" class="width-70"></td>
+          <td class="text w3-small" title="Error de precisión máximo en microsegundos">Pr:&nbsp;<input title="Error de precisión máximo en microsegundos" type="text" id="precisionmax" readonly="readonly" ondblclick="precisionmax=0;" class="width-70"></td>
+        </tr>
+        <tr class="w3-large">
+          <td colspan="3" class="tdplaysync w3-text-grey w3-small"><button class="w3-button w3-green w3-round w3-small" id="playSync">PlaySync</button>&nbsp;<input title="PlaySync" type="number" id="ss" value="2"  class="w3-small width-30"> segundos</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="w3-text-grey w3-center w3-small bg101010;">
+    <div><b>Metrónomo irregular polirrítmico</b> v1.9</div>
+    <div>Creado por <a rel="noopener" href="https://lengua.la" target="_blank" title="(2018-2024)">Santiago C. Novaro</a></div>
+  </div>
+</div>
+
+<div id="canal-modal" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-dark-grey w3-animate-zoom divmodal">
+    <header class="w3-container w3-dark-grey w3-padding">
+      <button type="button" class="w3-button w3-right w3-white w3-border" 
+      onclick="document.getElementById('canal-modal').style.display='none'">Cerrar</button>
+      <h2 class="nomarpad">Configurar<span id="canal-num"></span></h2>
+    </header>
+    <div class="w3-container">
+      <p class="w3-padding">Define las <b>notas</b> y el <b>volumen</b> del golpe, el acento y el silencio.</p>
+      <div class="w3-padding bordegris">
+        <table class="w3-large tblgolpes">
+          <tr>
+            <td class="right">Golpe:</td><td><select title="Nota Golpe" id="notu1"><option value="0" selected>A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7">E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td><td><input title="Volumen Golpe" class="small" type="range" id="volu1" min="0" max="1" step="0.05" value="0.5"></td>
+          </tr>
+          <tr>
+            <td class="right">Acento:</td><td><select title="Nota Acento" id="notu2"><option value="0">A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7" selected>E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td><td><input title="Volumen Acento" class="small" type="range" id="volu2" min="0" max="1" step="0.05" value="1.0"></td>
+          </tr>
+        </table>
+      </div>
+      <p class="w3-padding w3-text-grey">Si seleccionas <b>AUTO</b> la frecuencia en <b>Hertz</b> de cada golpe está dada por su posición en el círculo. La <b>afinación</b> de la escala cromática se puede generar con un <b>número</b> de <b>12</b>.</p>
+      <p>&nbsp;</p>
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+  // Este código verifica si la API del service worker está disponible. Si está disponible, se registra el service worker de /mc/sw.js una vez que se carga la página.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/mc/sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registrado exitosamente en: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('Error en el registro del ServiceWorker: ', err);
+      });
+    });
+  }
+  // Toggle css class
+  function toggleClass(id,cla) {
+    var element = document.getElementById(id);
+    if (element.classList) { 
+      element.classList.toggle(cla);
+    } else {
+      var classes = element.className.split(" ");
+      var i = classes.indexOf(cla);
+      if (i >= 0) 
+        classes.splice(i, 1);
+      else 
+        classes.push(cla);
+        element.className = classes.join(" "); 
+    }
+  }
+  // Variable que guarda cada variable polirritmia
+  var defaultPOL = [
+    {
+      'activo':false,
+      'nmax':11,
+      'octava':5,
+      'tipbip':3,
+      'pulso':0,
+      'vol':0.5,
+      'patron':[2,1,1,1,1,1,1,1,1,1,1],
+    },
+    {
+      'activo':false,
+      'nmax':7,
+      'octava':4,
+      'tipbip':3,
+      'pulso':0,
+      'vol':0.5,
+      'patron':[2,1,1,1,1,1,1],
+    },
+    {
+      'activo':true,
+      'nmax':5,
+      'octava':4,
+      'tipbip':3,
+      'pulso':0,
+      'vol':0.5,
+      'patron':[2,1,1,1,1],
+    },
+    {
+      'activo':true,
+      'nmax':3,
+      'octava':3,
+      'tipbip':3,
+      'pulso':0,
+      'vol':0.5,
+      'patron':[2,1,1],
+    },
+    {
+      'activo':false,
+      'nmax':2,
+      'octava':2,
+      'tipbip':3,
+      'pulso':0,
+      'vol':0.5,
+      'patron':[2,0],
+    }
+  ];
+var defaultCLAVE = '7.1/5.1';
+let ti = parseInt(new URLSearchParams(window.location.search).get('ti')) || 25; // Microsegundos por tick revisa si la variable ?ti= está definida en la URL.
+// Cargamos según haya datos POST o no, y si hay o no datos en LocalStorage
+let clave = localStorage.getItem('claveMC') ? JSON.parse(localStorage.getItem('claveMC')) : defaultCLAVE;
+let pol = localStorage.getItem('polMC') ? JSON.parse(localStorage.getItem('polMC')) : defaultPOL;
+//Guardamos lo que hayamos cargado a LocalStorage
+localStorage.setItem('polMC', JSON.stringify(pol));
+localStorage.setItem('claveMC', JSON.stringify(clave));
+
+
+</script>
+<script src="./mathjs-rythm.class.js"></script>
+<script src="./mc.js"></script>
+<script src="./vars.js"></script>
+</body>
+</html>
