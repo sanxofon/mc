@@ -1,0 +1,2033 @@
+<!-- index.html -->
+```
+  <!DOCTYPE html>
+  <html lang="en" xml:lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <!-- Search Engine -->
+  <meta name="description" content="Metrónomo irregular polirrítmico">
+  <meta name="image" content="/mc/img/metronomo_705x368.png">
+  <meta name="author" content="Santiago Chávez Novaro">
+  <link rel="manifest" href="/mc/manifest.webmanifest">
+  <title>Metrónomo irregular polirrítmico</title>
+  <meta name="theme-color" content="#202020" />
+  <!-- Allow web app to be run in full-screen mode. -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Metrónomo polirrítmico">
+  <meta name="apple-mobile-web-app-title" content="Metrónomo polirrítmico">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="/mc/img/launcher-icon-4x.png">
+  <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+  <meta name="og:title" content="Metrónomo irregular polirrítmico">
+  <meta name="og:description" content="Metrónomo irregular polirrítmico en línea, gratuito y libre. Sin anuncios.">
+  <meta name="og:image" content="/mc/img/metronomo.png">
+  <meta name="og:url" content="https://sanxofon.github.io/mc/">
+  <meta name="og:site_name" content="La Lengua">
+  <meta name="og:locale" content="es_MX">
+  <meta name="og:type" content="website">
+  <meta name="website:author" content="Santiago Chávez Novaro">
+  <!-- Schema.org for Google -->
+  <meta itemprop="name" content="Metrónomo polirrítmico">
+  <meta itemprop="description" content="Metrónomo irregular polirrítmico en línea, gratuito y libre. Sin anuncios.">
+  <meta itemprop="image" content="/mc/img/metronomo.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Metrónomo polirrítmico">
+  <meta name="twitter:description" content="Metrónomo irregular polirrítmico en línea, gratuito y libre. Sin anuncios.">
+  <meta name="twitter:site" content="@grupolalengua">
+  <meta name="twitter:creator" content="@sanxofon">
+  <meta name="twitter:image:src" content="https://sanxofon.github.io/mc/img/metronomo.png">
+  
+  <!-- Disable automatic phone number detection. -->
+  <meta name="format-detection" content="telephone=no">
+  <!-- FAVICON -->
+  <link rel="shortcut icon" href="/mc/favicon.png" type="image/png">
+  <link rel="icon" href="/mc/favicon.png" type="image/png">
+  <!-- STYLES -->
+  <link rel="stylesheet" type="text/css" href="./w3.css">
+  <link rel="stylesheet" type="text/css" href="./mc.css">
+  </head>
+  <body>
+  <div class="exterior bloque">
+    <div class="bloque rs" id="canvasResizer">
+        <canvas id="canvas" width="800" height="800"></canvas>
+    </div>
+    <div class="bloque ts">
+      <table class="playvolvel">
+        <tr>
+          <td colspan="2">
+            <button type="button" id="playButton" class="width-92 w3-xlarge w3-button w3-green w3-round">Play</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="w3-text-grey">
+            <br><br><input title="Volumen" class="width-92" type="range" id="vol" min="0" max="1" step="0.05"><br>Volumen general<br>
+          </td>
+          <td><button type="button" title="Configuración" onclick="document.getElementById('canal-modal').style.display='block';" class="butconf w3-button w3-round-xlarge w3-grey"><img alt="Configuración" src="/mc/img/cog.png" width="100%"></i></button></td>
+        </tr>
+        <tr>
+          <td class="w3-text-grey">
+            <br><input title="Compases por minuto range" class="width-92 small" type="range" id="cpmslide" step="0.1" min="10" max="60"><br>Compases Por Minuto<br>
+          </td>
+          <td width="80"><input title="Compases por minuto input" class="w3-xlarge" type="number" id="cpm" step="0.1" min="1" max="90" class="inpcpm"></td>
+        </tr>
+      </table>
+  
+      <div class="inpclave"><input title="Aquí se ve la Clave u Operación de Claves" type="text" id="clave" value="" class="small" onchange="doClave();"></div>
+      
+      <table class="cuadricula">
+        <tr class="w3-large fondo1">
+          <td><label class="container"><input title="Activo 1" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+          <td><label class="container"><input title="Activo 2" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+          <td><label class="container"><input title="Activo 3" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+          <td><label class="container"><input title="Activo 4" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+          <td><label class="container"><input title="Activo 5" class="activo" type="checkbox" checked="checked"><span class="checkmark"></span></label></td>
+          <td class="text w3-medium">Activo</td>
+        </tr>
+        <tr class="w3-large">
+          <td><input title="Número 1" class="nmax" type="number" min="0" max="64"></td>
+          <td><input title="Número 2" class="nmax" type="number" min="0" max="64"></td>
+          <td><input title="Número 3" class="nmax" type="number" min="0" max="64"></td>
+          <td><input title="Número 4" class="nmax" type="number" min="0" max="64"></td>
+          <td><input title="Número 5" class="nmax" type="number" min="0" max="64"></td>
+          <td class="text w3-medium">Número</td>
+        </tr>
+        <tr class="w3-large fondo1">
+          <td><input title="BMP 1" class="bpm" type="text" readonly="readonly"></td>
+          <td><input title="BMP 2" class="bpm" type="text" readonly="readonly"></td>
+          <td><input title="BMP 3" class="bpm" type="text" readonly="readonly"></td>
+          <td><input title="BMP 4" class="bpm" type="text" readonly="readonly"></td>
+          <td><input title="BMP 5" class="bpm" type="text" readonly="readonly"></td>
+          <td class="text w3-medium">BPM</td>
+        </tr>
+        <tr class="w3-large">
+          <td><input title="Pulso 1" class="pulso" type="text" readonly="readonly"></td>
+          <td><input title="Pulso 2" class="pulso" type="text" readonly="readonly"></td>
+          <td><input title="Pulso 3" class="pulso" type="text" readonly="readonly"></td>
+          <td><input title="Pulso 4" class="pulso" type="text" readonly="readonly"></td>
+          <td><input title="Pulso 5" class="pulso" type="text" readonly="readonly"></td>
+          <td class="text w3-medium">Pulso</td>
+        </tr>
+        <tr class="w3-large fondo1">
+          <td><input title="Volumen 1" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+          <td><input title="Volumen 2" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+          <td><input title="Volumen 3" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+          <td><input title="Volumen 4" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+          <td><input title="Volumen 5" orient="vertical" class="vol vertical" type="range" min="0.0" max="1.0" step="0.01"></td>
+          <td class="text w3-medium">Vol</td>
+        </tr>
+        <tr class="w3-large">
+          <td><input title="Octava 1" class="octava" type="number" min="0" max="10" step="1"></td>
+          <td><input title="Octava 2" class="octava" type="number" min="0" max="10" step="1"></td>
+          <td><input title="Octava 3" class="octava" type="number" min="0" max="10" step="1"></td>
+          <td><input title="Octava 4" class="octava" type="number" min="0" max="10" step="1"></td>
+          <td><input title="Octava 5" class="octava" type="number" min="0" max="10" step="1"></td>
+          <td class="text w3-medium">Octava</td>
+        </tr>
+        <tr class="w3-large fondo1">
+          <td><input title="Tipo 1" class="tipbip" type="number" min=0 max=3 step=1></td>
+          <td><input title="Tipo 2" class="tipbip" type="number" min=0 max=3 step=1></td>
+          <td><input title="Tipo 3" class="tipbip" type="number" min=0 max=3 step=1></td>
+          <td><input title="Tipo 4" class="tipbip" type="number" min=0 max=3 step=1></td>
+          <td><input title="Tipo 5" class="tipbip" type="number" min=0 max=3 step=1></td>
+          <td class="text w3-medium">Tipo</td>
+        </tr>
+      </table>
+  
+      <div class="w3-text-white w3-center w3-small"><a href="javascript:void(0);" class="w3-text-grey" onclick="toggleClass('vermas','oculto');">Opciones avanzadas</a></div>
+      <div class="oculto" id="vermas">
+        <table class="tblvermas">
+          <tr class="w3-large">
+            <td class="text w3-small" title="Compás #">Co:<input title="Compás #" type="number" id="compas" step=1 class="width-70"></td>
+            <td class="text w3-small" title="CPM Real">CR: <input title="CPM Real" type="text" id="cpmr" readonly="readonly" class="width-70"></td>
+          </tr>
+          <tr class="w3-large">
+            <td class="text w3-small" title="Micropulso imperceptible">Ss:&nbsp;<input title="Micropulso imperceptible" type="text" id="segs" min="1" max="240" step="1.000" readonly="readonly" class="width-70"></td>
+            <td class="text w3-small" title="Intervalo de tiempo mínimo">Ti:&nbsp;<input title="Intervalo de tiempo mínimo" type="text" id="ti" step="1.000" readonly="readonly" class="width-70"></td>
+            <td class="text w3-small" title="Error de precisión máximo en microsegundos">Pr:&nbsp;<input title="Error de precisión máximo en microsegundos" type="text" id="precisionmax" readonly="readonly" ondblclick="precisionmax=0;" class="width-70"></td>
+          </tr>
+          <tr class="w3-large">
+            <td colspan="3" class="tdplaysync w3-text-grey w3-small"><button class="w3-button w3-green w3-round w3-small" id="playSync">PlaySync</button>&nbsp;<input title="PlaySync" type="number" id="ss" value="2"  class="w3-small width-30"> segundos</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="w3-text-grey w3-center w3-small bg101010;">
+      <div><b>Metrónomo irregular polirrítmico</b> v1.9</div>
+      <div>Creado por <a rel="noopener" href="https://lengua.la" target="_blank" title="(2018-2024)">Santiago C. Novaro</a></div>
+    </div>
+  </div>
+  
+  <div id="canal-modal" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-dark-grey w3-animate-zoom divmodal">
+      <header class="w3-container w3-dark-grey w3-padding">
+        <button type="button" class="w3-button w3-right w3-white w3-border" 
+        onclick="document.getElementById('canal-modal').style.display='none'">Cerrar</button>
+        <h2 class="nomarpad">Configurar<span id="canal-num"></span></h2>
+      </header>
+      <div class="w3-container">
+        <p class="w3-padding">Define las <b>notas</b> y el <b>volumen</b> del golpe, el acento y el silencio.</p>
+        <div class="w3-padding bordegris">
+          <table class="w3-large tblgolpes">
+            <tr>
+              <td class="right">Golpe:</td><td><select title="Nota Golpe" id="notu1"><option value="0" selected>A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7">E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td><td><input title="Volumen Golpe" class="small" type="range" id="volu1" min="0" max="1" step="0.05" value="0.5"></td>
+            </tr>
+            <tr>
+              <td class="right">Acento:</td><td><select title="Nota Acento" id="notu2"><option value="0">A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7" selected>E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td><td><input title="Volumen Acento" class="small" type="range" id="volu2" min="0" max="1" step="0.05" value="1.0"></td>
+            </tr>
+          </table>
+        </div>
+        <p class="w3-padding w3-text-grey">Si seleccionas <b>AUTO</b> la frecuencia en <b>Hertz</b> de cada golpe está dada por su posición en el círculo. La <b>afinación</b> de la escala cromática se puede generar con un <b>número</b> de <b>12</b>.</p>
+        <p>&nbsp;</p>
+      </div>
+  
+    </div>
+  </div>
+  <script type="text/javascript">
+    // Este código verifica si la API del service worker está disponible. Si está disponible, se registra el service worker de /mc/sw.js una vez que se carga la página.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/mc/sw.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registrado exitosamente en: ', registration.scope);
+        }, function(err) {
+          // registration failed :(
+          console.log('Error en el registro del ServiceWorker: ', err);
+        });
+      });
+    }
+    // Toggle css class
+    function toggleClass(id,cla) {
+      var element = document.getElementById(id);
+      if (element.classList) { 
+        element.classList.toggle(cla);
+      } else {
+        var classes = element.className.split(" ");
+        var i = classes.indexOf(cla);
+        if (i >= 0) 
+          classes.splice(i, 1);
+        else 
+          classes.push(cla);
+          element.className = classes.join(" "); 
+      }
+    }
+    // Variable que guarda cada variable polirritmia
+    var defaultPOL = [
+      {
+        'activo':false,
+        'nmax':11,
+        'octava':5,
+        'tipbip':3,
+        'pulso':0,
+        'vol':0.5,
+        'patron':[2,1,1,1,1,1,1,1,1,1,1],
+      },
+      {
+        'activo':false,
+        'nmax':7,
+        'octava':4,
+        'tipbip':3,
+        'pulso':0,
+        'vol':0.5,
+        'patron':[2,1,1,1,1,1,1],
+      },
+      {
+        'activo':true,
+        'nmax':5,
+        'octava':4,
+        'tipbip':3,
+        'pulso':0,
+        'vol':0.5,
+        'patron':[2,1,1,1,1],
+      },
+      {
+        'activo':true,
+        'nmax':3,
+        'octava':3,
+        'tipbip':3,
+        'pulso':0,
+        'vol':0.5,
+        'patron':[2,1,1],
+      },
+      {
+        'activo':false,
+        'nmax':2,
+        'octava':2,
+        'tipbip':3,
+        'pulso':0,
+        'vol':0.5,
+        'patron':[2,0],
+      }
+    ];
+  var defaultCLAVE = '7.1/5.1';
+  let ti = parseInt(new URLSearchParams(window.location.search).get('ti')) || 25; // Microsegundos por tick revisa si la variable ?ti= está definida en la URL.
+  // Cargamos según haya datos POST o no, y si hay o no datos en LocalStorage
+  let clave = localStorage.getItem('claveMC') ? JSON.parse(localStorage.getItem('claveMC')) : defaultCLAVE;
+  let pol = localStorage.getItem('polMC') ? JSON.parse(localStorage.getItem('polMC')) : defaultPOL;
+  //Guardamos lo que hayamos cargado a LocalStorage
+  localStorage.setItem('polMC', JSON.stringify(pol));
+  localStorage.setItem('claveMC', JSON.stringify(clave));
+  
+  
+  </script>
+  <script src="./mathjs-rythm.class.js"></script>
+  <script src="./mc.js"></script>
+  <script src="./vars.js"></script>
+  </body>
+  </html>
+```
+
+<!-- manifest.webmanifest -->
+```
+  {"dir":"ltr","lang":"es-MX","name":"Metrónomo polirrítmico","short_name":"Metrónomo","display":"fullscreen","description":"El metrónomo del futuro: Gratis y Libre","background_color":"#808080","theme_color":"#202020","orientation":"portrait","categories":["music","education"],"icons":[{"src":"\/mc\/img\/launcher-icon-1x.png","type":"image\/png","sizes":"48x48"},{"src":"\/mc\/img\/launcher-icon-2x.png","type":"image\/png","sizes":"96x96"},{"src":"\/mc\/img\/launcher-icon-4x.png","type":"image\/png","sizes":"192x192"},{"src":"\/mc\/img\/launcher-icon-512.png","type":"image\/png","sizes":"512x512"}],"screenshots":[{"src":"\/mc\/img\/screenshot1.webp","sizes":"1123x655","type":"image\/webp"},{"src":"\/mc\/img\/screenshot2.webp","sizes":"1080x2340","type":"image\/webp"}],"scope":"\/mc\/","start_url":"\/mc\/?ti=25"}
+```
+
+<!-- mathjs-rythm.class.js -->
+```
+  // math+rythm
+  class mrythm {
+  	// BASE 62 -------------------------------------------------------------
+  	static base62encode(integer) {
+  		const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  		var arrayOfChars = chars.split("");
+  		if (integer === 0) {return '0';}
+  		var s = '';
+  		while (integer > 0) {
+  			s = arrayOfChars[integer % 62] + s;
+  			integer = Math.floor(integer/62);
+  		}
+  		return s;
+  	}
+  	static base62decode(base62String) {
+  		const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  		var arrayOfChars = chars.split("");
+  		var val = 0, base62Chars = base62String.split("").reverse();
+  		base62Chars.forEach(function(character, index){
+  			val += arrayOfChars.indexOf(character) * Math.pow(62, index);
+  		});
+  		return val;
+  	}
+  	static base62expand(clave) { // a2d => 10_2_13
+  		clave = String(clave).split('.');
+  		var silencio=''; //inicial
+  		if(clave[0].charAt(0)==='-'){
+  			silencio='-';
+  			clave[0]=clave[0].replace(/^\-+/,"");
+  		}
+  		clave[1] = clave[1].split('');
+  		for (var i = 0; i < clave[1].length; i++) {
+  			clave[1][i]=this.base62decode(clave[1][i]);
+  		}
+  		clave[1] = clave[1].join('_');
+  		return silencio+clave.join('.');
+  	}
+  	static base62contract(clave) { // 10_2_13 => a2d 
+  		clave = String(clave).split('.');
+  		var silencio=''; //inicial
+  		if(clave[0].charAt(0)==='-'){
+  			silencio='-';
+  			clave[0]=clave[0].replace(/^\-+/,"");
+  		}
+  		clave[1] = clave[1].split('_');
+  		for (var i = 0; i < clave[1].length; i++) {
+  			clave[1][i]=this.base62encode(clave[1][i]);
+  		}
+  		clave[1] = clave[1].join('');
+  		return silencio+clave.join('.');
+  	}
+  
+  	// PARSER --------------------------------------------------------------
+  	static clean(a) {
+  		for(var i = 0; i < a.length; i++) {
+  			if(a[i] === "") {
+  				a.splice(i, 1);
+  			}
+  		}
+  		return a;
+  	}
+  	static infixToPostfix(infix) {
+  		var outputQueue = "";
+  		var operatorStack = [];
+  		var operators = {
+  			// "^": {
+  			// 	precedence: 4,
+  			// 	associativity: "Right"
+  			// },
+  			"*": {
+  				precedence: 4,
+  				associativity: "Left"
+  			},
+  			"/": {
+  				precedence: 3,
+  				associativity: "Left"
+  			},
+  			"+": {
+  				precedence: 2,
+  				associativity: "Left"
+  			},
+  			// "-": {
+  			// 	precedence: 2,
+  			// 	associativity: "Left"
+  			// }
+  		};
+  		infix = infix.replace(/\s+/g, "");
+  		// infix = this.clean(infix.split(/([\+\-\*\/\^\(\)])/));
+  		infix = this.clean(infix.split(/([\+\*\/\(\)])/));
+  		for(var i = 0; i < infix.length; i++) {
+  			var token = infix[i];
+  			// if("^*/+-".indexOf(token) !== -1) {
+  			if("*/+".indexOf(token) !== -1) {
+  				var o1 = token;
+  				var o2 = operatorStack[operatorStack.length - 1];
+  				// while("^*/+-".indexOf(o2) !== -1 && ((operators[o1].associativity === "Left" && operators[o1].precedence <= operators[o2].precedence) || (operators[o1].associativity === "Right" && operators[o1].precedence < operators[o2].precedence))) {
+  				while("*/+".indexOf(o2) !== -1 && ((operators[o1].associativity === "Left" && operators[o1].precedence <= operators[o2].precedence) || (operators[o1].associativity === "Right" && operators[o1].precedence < operators[o2].precedence))) {
+  					outputQueue += operatorStack.pop() + " ";
+  					o2 = operatorStack[operatorStack.length - 1];
+  				}
+  				operatorStack.push(o1);
+  			} else if(token === "(") {
+  				operatorStack.push(token);
+  			} else if(token === ")") {
+  				while(operatorStack[operatorStack.length - 1] !== "(") {
+  					outputQueue += operatorStack.pop() + " ";
+  				}
+  				operatorStack.pop();
+  			} else {
+  				outputQueue += token + " ";
+  			}
+  		}
+  		while(operatorStack.length > 0) {
+  			outputQueue += operatorStack.pop() + " ";
+  		}
+  		return outputQueue;
+  	}
+  	static solvePostfix(postfix) {
+  		var resultStack = [];
+  		postfix = postfix.trim().split(" ");
+  		// console.log('postfix:',postfix);
+  		for(var i = 0; i < postfix.length; i++) {
+  			if(postfix[i] === "") {
+  				continue;
+  			// } else if("^/*+-".indexOf(postfix[i]) !== -1) {
+  			} else if("/*+".indexOf(postfix[i]) !== -1) {
+  				const a = resultStack.pop();
+  				const b = resultStack.pop();
+  				const c = this.operar(a,b,postfix[i]);
+  				resultStack.push(c);
+  			} else {
+  				resultStack.push(postfix[i]);
+  			}
+  		}
+  		if(resultStack.length > 1) {
+  			return "error";
+  		} else {
+  			return resultStack.pop();
+  		}
+  	}
+  	static esClave(s) {
+  		s = String(s);
+  		if("*/+".indexOf(s) !== -1)return false;
+  		else {
+  			s=s.split(".");
+  			if(s.length===1)return false;
+  			else return true;
+  		}
+  	}
+  	static compareClaves(a, b) {
+  		a=String(a).split('.');
+  		a=parseInt(a[0]);
+  		b=String(b).split('.');
+  		b=parseInt(b[0]);
+  		return b-a;
+  	}
+  	static parse(expression,reducir=false,asarray=false) {
+  		var infix = this.filtrar(expression); // filtrar
+  		const postfix = this.infixToPostfix(infix);
+  		// con(postfix);
+  		var pf = postfix.split(' ');
+  		console.log("pf:",pf);
+  		pf = pf.filter(this.esClave);
+  		console.log("pff:",pf);
+  		for (var i = 0; i < pf.length; i++) {
+  			console.log("pf["+i+"]:",pf[i]);
+  			pf[i] = this.completarClave(pf[i]);
+  			pf[i] = this.clave2binary(pf[i]);
+  		}
+  		pf.sort(this.compareClaves);
+  		// con(pf.join('|'),true);
+  		return [this.completarClave(this.solvePostfix(postfix),asarray,reducir),pf];
+  	}
+  
+  	// OPERACIONES ---------------------------------------------------------
+  	static mcm(a,b) {
+  		var r = a * b;
+  		var m = Math.max(a,b);
+  		var n = Math.min(a,b);
+  		m = m/n;
+  		if (Number.isInteger(m)) r = r/n;
+  		return r;
+  	}
+  	static mcd(a, b) {
+  		if ((typeof a !== 'number') || (typeof b !== 'number')) 
+  			return false;
+  		a = Math.abs(a);
+  		b = Math.abs(b);
+  		while(b) {
+  			var t = b;
+  			b = a % b;
+  			a = t;
+  		}
+  		return a;
+  	}
+  	static multimcd(lista) {
+  		if (toString.call(lista) !== "[object Array]")  
+  			return  false;  
+  		var len, a, b;
+  		len = lista.length;
+  		if ( !len ) {
+  			return null;
+  		}
+  		a = lista[ 0 ];
+  		for ( var i = 1; i < len; i++ ) {
+  			b = lista[ i ];
+  			a = this.mcd( a, b );
+  		}
+  		return a;
+  	}
+  	static juntar(c) {
+  		// return c.join('-');//si se quiere leer humano
+  		for (var i = 0; i < c.length; i++) {
+  			c[i]=this.base62encode(c[i]);
+  		}
+  		return c.join('');
+  	}
+  	static romper(c) {
+  		c = String(c).split('');
+  		for (var i = 0; i < c.length; i++) {
+  			c[i]=this.base62decode(c[i]);
+  		}
+  		return c;
+  	}
+  	static completarClave(c,asarray=false,reducir=false) {
+  		c = String(c);
+  		var silencio=''; //inicial
+  		if(c.charAt(0)=='-'){
+  			silencio='-';
+  			c=c.replace(/^\-+/,"");
+  		}
+  		c = c.trim('.').split('.');
+  		var n = parseInt(c[0]);
+  		if(c.length==1)c.push(c[0]); // FIX: 7 => 7.7
+  		c = this.romper(c[1]);
+  		var s = [];
+  		var m = 0,i = 0;
+  		while(m<n) {
+  			var x = parseInt(c[i]);
+  			if(x==0) m+=1;
+  			else m+=x;
+  			if(m>n)s.push(x-(m-n));
+  			else s.push(x);
+  			i++;
+  			if(i>=c.length)i=0;
+  		}
+  		// console.log("s:",s);
+  		// Reducir a mínima expresión
+  		if(reducir){
+  			var divs=[];
+  			for (var i = 0; i < s.length; i++) {
+  				const d = this.mcd(n,s[i]);
+  				if(d===1){
+  					reducir=false;
+  					break;
+  				} else {
+  					if(divs.indexOf(d)===-1)divs.push(d);
+  				}
+  			}
+  			if(reducir){
+  				// console.log("Reducir:",n,s);
+  				reducir = this.multimcd(divs);
+  				if(reducir>1){
+  					n=n/reducir;
+  					for (var i = 0; i < s.length; i++) {
+  						s[i]=s[i]/reducir;
+  					}
+  				}
+  			}
+  		}
+  
+  		if(asarray)return [n,s,(silencio!=='' ? 1:0)]; // array
+  		else return silencio+n+'.'+this.juntar(s);
+  	}
+  	static multiplo(m,a) {
+  		// console.log('antes:',a);
+  		var x = 0;
+  		var z = a[0]*m; // No puede empezar con cero!!
+  		for (var i = 0; i < a.length; i++) {
+  			x+=parseInt(a[i])*m;
+  			a[i]=x;
+  		}
+  		// console.log('despu:',a);
+  		return a;
+  	}
+  	static binary2clave(b) {
+  		var x = 1,c = [];
+  		for (var i = b.length - 1; i >= 0; i--) {
+  			if(b[i]==0)x++;
+  			else{
+  				c.push(x);
+  				x = 1;
+  			}
+  		}
+  		return c.reverse();
+  	}
+  	static clave2binary(c) {
+  		// console.log("IN:",c);
+  		c = String(c).split('.');
+  		if(c.length===1)c.push(c[0]); // 7 => 7.7
+  		c[1]=c[1].split('');
+  		var b = [];
+  		for (var i = 0; i < c[1].length; i++) {
+  			var x = parseInt(c[1][i]);
+  			if(x==0 || x==1)b.push(x);
+  			else{
+  				b.push(1);
+  				for (var j = 1; j < x; j++) {
+  					b.push(0);
+  				}
+  			}
+  		}
+  		var co = c[0]+"."+b.join('');
+  		// console.log("OUT:",co);
+  		return co;
+  	}
+  	static conjugar(a,b,asarray=false) {
+  		a = this.completarClave(a,true);
+  		b = this.completarClave(b,true);
+  		a[0]=parseInt(a[0]);
+  		b[0]=parseInt(b[0]);
+  		const n = this.mcm(a[0],b[0]);
+  		const na = this.multiplo(n/a[0],a[1]);
+  		const nb = this.multiplo((n/b[0]),b[1]);
+  		// Patrón binario
+  		var bin=[1];// no puede empezar en cero
+  		var ja=0,jb=0;
+  		var dopush=false;
+  		for (var i = 1; i < n; i++) {
+  			// no puede empezar en cero
+  			dopush=false;
+  			if(i==na[ja]){ // El pulso i está en la clave a
+  				dopush=true;
+  				ja++;
+  			}
+  			if(i==nb[jb]){ // El pulso i está en la clave b
+  				dopush=true;
+  				jb++;
+  			}
+  			if(dopush)bin.push(1);
+  			else bin.push(0);
+  		}
+  		const c = this.binary2clave(bin);
+  		if(asarray)return [n,c];
+  		else return n+'.'+this.juntar(c);
+  	}
+  	static apilar(a,b,asarray=false) {
+  		a = this.completarClave(a,true);
+  		b = this.completarClave(b,true);
+  		const n = parseInt(a[0])+parseInt(b[0]);
+  		if(asarray)return [n,a.concat(b)];
+  		else return n+'.'+this.juntar(a[1])+this.juntar(b[1]);
+  	}
+  	static multiplicar(a,x,asarray=false) {
+  		a = this.completarClave(a,true);
+  		x = x.split('.');
+  		x=parseInt(x[0]);
+  		const n = parseInt(a[0])*x;
+  		var y=[];
+  		for (var j = 0; j < x; j++) {
+  			for (var i = 0; i < a[1].length; i++) {
+  				y.push(a[1][i]);
+  			}
+  		}
+  		if(asarray)return [n,y];
+  		else return n+'.'+this.juntar(y);
+  	}
+  	static operar(a,b,op='+') {
+  		if(op==='/') {
+  			return this.conjugar(a,b);
+  		} else if(op==='+') {
+  			return this.apilar(b,a);//Ojo con el orden!
+  		} else if(op==='*') {
+  			return this.multiplicar(b,a);//Ojo con el orden! a=x
+  		} else {
+  			console.log("ERROR: Operacion desconocida: ",op);
+  			console.log("a: ",a);
+  			console.log("b: ",b);
+  		}
+  	}
+  	static filtrar(c) {
+  		return c.replace(/[^a-zA-Z0-9\.+\-*\/()]/gi, '');
+  	}
+  }
+```
+
+<!-- mc.css -->
+```
+    *{
+      padding:0;
+      margin:0;
+    }
+    body {
+      background-color:#444;
+      touch-action: manipulation;
+    }
+    .bloque {
+      display: inline-block;
+    }
+    td.text {
+      color: #ddd;
+      background-color: transparent;
+      border: none;
+      font-family: "Courier New",Courier,monospace;
+      width: 100px;
+      font-size: 1.2em;
+    }
+    select {
+      color: #ddd;
+      background-color: #404040;
+      border: 1px solid #606060;
+      font-family: "Courier New",Courier,monospace;
+      width: 100px;
+      font-size: 1.2em;
+    }
+    input[type=text],
+    input[type=number] {
+      color: #ddd;
+      background-color: transparent;
+      border: 1px solid #404040;
+      font-family: "Courier New",Courier,monospace;
+      width: 100px;
+      font-size: 1.2em;
+    }
+    input[type=text],
+    input[type=number] {
+      text-align: center;
+    }
+    /*input[type=text].chico,
+    input[type=number].chico {
+      width: 60px;
+    }*/
+    input[type=text],
+    input[type=number] {
+      box-sizing : border-box;
+      width: 100%;
+    }
+  
+    /*button {
+      color: #ddd;
+      background-color: #333;
+      font-family: "Courier New",Courier,monospace;
+      font-size: 1.2em;
+      margin: 5px;
+      padding: 6px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #633;
+    }*/
+    td.text {
+      text-align: right;
+    }
+    .right {
+      text-align: right;
+    }
+    .exterior {
+      border: 1px solid #666;
+      padding:0;
+      margin:0;
+      background: #222;
+      vertical-align: top;
+    }
+    .exterior div {
+      vertical-align: top;
+    }
+    tr,td {
+      padding:0;
+      margin:0;
+    }
+    /*table.interior td:nth-child(6) {
+      padding-right: 20px;
+    }*/
+    table.interior td:nth-child(1) {
+      text-align: right !important;
+      /*padding-left: 20px;*/
+    }
+    .oculto {
+      height: 0px;
+      overflow: auto;
+    }
+  
+    table.playvolvel {
+      width: 98%;
+      margin-top: 12px;
+    }
+    table.playvolvel td {
+      text-align: center;
+    }
+    .butconf {
+      width: 100%;
+      padding:3px;
+    }
+    .inpcpm {
+      border: none;
+      background-color: #333;
+      padding: 0;
+      line-height: 100%;
+    }
+    .inpclave {
+      width: 98%;
+      margin: 0 auto;
+    }
+    #clave {
+      background-color:#404040;
+    }
+  
+    .rs {
+      border: 1px solid #666;
+      resize: both;
+      overflow: hidden;
+      width: 500px;
+      height: 500px;
+    }
+    .ts {
+      max-width: 500px;
+      overflow: auto;
+    }
+    @media (max-width : 640px) {
+      .rs {
+        width: 100%;
+        height: 99vw;
+      }
+      .ts {
+        max-width: 100vw;
+      }
+    }
+  
+    #canvas {
+      background-color:transparent;
+      height: inherit;
+    }
+    .fondo {
+      background: #222;
+    }
+    .fondo1 {
+      background: #333;
+    }
+    .fondo2 {
+      background: #444;
+    }
+  
+    table.cuadricula {
+      width: 98%;
+      margin: 0 auto;
+      /* width: 100%; */
+    }
+    table.cuadricula td {
+      width: 16.6%;
+      text-align: center !important;
+    }
+    .tblvermas {
+      width:96%;
+      margin: 0 auto;
+    }
+    .tdplaysync {
+      text-align:center;
+      padding:20px;
+    }
+    .bg101010 {
+      background: #101010;
+    }
+    .divmodal {
+      background-color: #202020 !important; 
+      max-width: 500px;
+    }
+    .nomarpad {
+      margin:0;padding:0;
+    }
+    .bordegris {
+      border: 1px solid #606060;
+    }
+    .tblgolpes {
+      width:100%;
+      max-width: 400px; 
+      margin:0 auto;
+    }
+    .width-92 {
+      width: 92% !important;
+    }
+    .width-30 {
+      width: 30% !important;
+    }
+    .width-70 {
+      width: 70% !important;
+    }
+  
+    /*STYLED CHECKBOX*/
+     /* Customize the label (the container) */
+    .container {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      width: 25px !important;
+      height: 25px !important;
+      border: 2px solid #aaa;
+    }
+  
+    /* Hide the browser's default checkbox */
+    .container input {
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+  
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #a88;
+    }
+  
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+      background-color: #ccc;
+    }
+  
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+      background-color: #44cc00;
+    }
+  
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+      display: block;
+    }
+  
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    } 
+    /*----- RANGOS -----*/
+    input[type=range] {
+      width: 100%;
+      -webkit-appearance: none;
+      background: #222;
+    }
+    input[type=range]:focus {
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 18px;
+      cursor: pointer;
+      background: #5a5a5a;
+      border-radius: 25px;
+      border: 2.3px solid #464646;
+    }
+    input[type=range]:focus::-webkit-slider-runnable-track {
+      background: #6e6e6e;
+    }
+    input[type=range]::-moz-range-track {
+      width: 100%;
+      height: 18px;
+      cursor: pointer;
+      background: #5a5a5a;
+      border-radius: 25px;
+      border: 2.3px solid #464646;
+    }
+    input[type=range]::-ms-track {
+      width: 100%;
+      height: 18px;
+      cursor: pointer;
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+    input[type=range]::-ms-fill-lower {
+      background: #464646;
+      border: 2.3px solid #464646;
+      border-radius: 50px;
+    }
+    input[type=range]::-ms-fill-upper {
+      background: #5a5a5a;
+      border: 2.3px solid #464646;
+      border-radius: 50px;
+    }
+    input[type=range]:focus::-ms-fill-lower {
+      background: #5a5a5a;
+    }
+    input[type=range]:focus::-ms-fill-upper {
+      background: #6e6e6e;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      border: 7px solid #7d7d7d;
+      height: 30px;
+      width: 30px;
+      border-radius: 50px;
+      background: #414141;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -8.3px;
+    }
+    input[type=range]::-moz-range-thumb {
+      border: 7px solid #7d7d7d;
+      height: 30px;
+      width: 30px;
+      border-radius: 50px;
+      background: #414141;
+      cursor: pointer;
+    }
+    input[type=range]::-ms-thumb {
+      border: 7px solid #7d7d7d;
+      height: 30px;
+      width: 30px;
+      border-radius: 50px;
+      background: #414141;
+      cursor: pointer;
+      height: 18px;
+    }
+  
+  
+    /* VErtical slider */
+    input[type=range].vertical {
+      -webkit-appearance: none;
+      height: 100px;
+      width: 18px;
+      writing-mode: bt-lr;
+      /* IE */
+      -webkit-appearance: slider-vertical;
+      /* WebKit */
+    }
+  
+    input[type=range].vertical::-webkit-slider-runnable-track {
+      height: 100%;
+      width: 9px;
+    }
+    input[type=range].vertical:focus::-webkit-slider-runnable-track {
+      background: #6e6e6e;
+    }
+    input[type=range].vertical::-moz-range-track {
+      height: 100%;
+      width: 9px;
+    }
+    input[type=range].vertical::-ms-track {
+      height: 100%;
+      width: 9px;
+    }
+    input[type=range].vertical::-webkit-slider-thumb {
+      height: 15px;
+      width: 15px;
+    }
+    input[type=range].vertical::-moz-range-thumb {
+      height: 15px;
+      width: 15px;
+    }
+    input[type=range].vertical::-ms-thumb {
+      height: 15px;
+      width: 15px;
+    }
+  
+  
+    input[type=range].small::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 9px;
+    }
+    input[type=range].small:focus::-webkit-slider-runnable-track {
+      background: #6e6e6e;
+    }
+    input[type=range].small::-moz-range-track {
+      width: 100%;
+      height: 9px;
+    }
+    input[type=range].small::-ms-track {
+      width: 100%;
+      height: 9px;
+    }
+    input[type=range].small::-webkit-slider-thumb {
+      height: 15px;
+      width: 15px;
+    }
+    input[type=range].small::-moz-range-thumb {
+      height: 15px;
+      width: 15px;
+    }
+    input[type=range].small::-ms-thumb {
+      height: 15px;
+      width: 15px;
+    }
+```
+
+<!-- mc.js -->
+```
+  //Sonido con ocilador
+  var beep = (function () {
+    return function (duration, golpe, type, vo, nota, n, oct, finishedCallback) {
+      duration = +duration;
+  
+      // Only 0-3 are valid types.
+      if(type<=0 || type>3) type=0;
+  
+      if (typeof finishedCallback != "function") {
+          finishedCallback = function () {};
+      }
+  
+      if(notu[golpe]>11) { // AUTO
+        var hertz = getFrequency(nota,n,oct);
+      } else {
+        var hertz = getFrequency(notu[golpe],12,oct);
+      }
+      // console.log('golpe',golpe);
+      // console.log('notu[golpe]',notu[golpe]);
+      // console.log('oct',oct);
+      // console.log('hertz',hertz);
+  
+      var osc = actx.createOscillator();
+      var types = [
+        'sine', // A sine wave. This is the default value.
+        'square', // A square wave with a duty cycle of 0.5; that is, the signal is "high" for half of each period.
+        'sawtooth', // A sawtooth wave.
+        'triangle', // A triangle wave.
+      ];
+      osc.type = types[type];
+      //osc.type = "sine";
+  
+  
+      // osc.connect(actx.destination);
+      var gainNode = actx.createGain();
+      osc.connect(gainNode);
+      gainNode.connect(actx.destination);
+      gainNode.gain.value = Math.pow(vol,2)*vo*volu[golpe];
+      // if (osc.noteOff) {
+      //   try{osc.noteOff(0);}
+      //   catch(error) {console.log("No osc.noteOff");}
+      // }
+      // if (osc.stop) {
+      //   try{osc.stop();}
+      //   catch(error){console.log("No osc.stop");}
+      // }
+      osc.frequency.setValueAtTime(hertz, actx.currentTime);
+      // gainNode.gain.exponentialRampToValueAtTime(vol, actx.currentTime+0.1);
+      if (osc.noteOn) osc.noteOn(0);
+      if (osc.start) osc.start();
+  
+      setTimeout(function () {
+        // gainNode.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime+0.1);
+        if (osc.noteOff) osc.noteOff(0);
+        if (osc.stop) osc.stop();
+        finishedCallback();
+      }, duration);
+  
+    };
+  })();
+  function getFrequency(nota,n,oct) {
+    // console.log("IN:",nota,n,oct);
+    nota -= -oct*n;
+    // console.log("OT:",nota,n,oct);
+    return 32.70 * Math.pow(2, (nota-1) / n);
+  }
+  function getMousePos(c, e) {
+      var rect = c.getBoundingClientRect();
+      return {
+          x: (800*e.clientX/rect.width) - rect.left - (800/2),
+          y: (800*e.clientY/rect.height) - rect.top - (800/2)
+      };
+  }
+  
+  // FUNCIONES ----------------------
+  function playStart() {
+    // Loop del intervalo
+    clearInterval(sto);
+    clearTiempo();
+    angulo = 0;
+    for (var i = 0; i < pol.length; i++) {
+      var e = i-(-1);
+      pol[i]['pulso'] = 0;
+    }
+    drawClock();
+  }
+  function playStop() {
+    // Loop del intervalo
+    clearInterval(sti);
+    clearInterval(sto);
+  }
+  
+  // Funciones del reloj
+  function drawClock() {
+    var redo=true;
+    if(!isPlaying)redo=false;
+    clearInterval(sto);
+    localStorage.setItem('polMC', JSON.stringify(pol));
+    localStorage.setItem('claveMC', JSON.stringify(clave));
+    drawFace(ctx, radius);
+    if(redo)drawTime(ctx, radius);
+    regiones=[];
+    for (var i = 0; i < pol.length; i++) {
+      var e = i-(-1);
+      if(pol[i]['activo'])drawNumbers(ctx, radius*((5-i)/5), pol[i]['nmax'], angulo, i);
+    }
+    var t = tiempo();
+    // console.log('drawClock:',ti,t);
+    if(redo)sto=setTimeout(drawClock,t);
+  }
+  
+  // Dibuja la cara del reloj
+  function drawFace(ctx, radius) {
+    ctx.strokeStyle = '#999'; // Color de borde
+    // Dibuja el círculo fondo y el borde exterior
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, 2*Math.PI);
+    ctx.fillStyle = '#000'; // Color del fondo del reloj
+    ctx.fill();
+    ctx.lineWidth = radius*bordep; // Lo que sobra es borde
+    ctx.stroke();
+    ctx.closePath();
+  
+    // Círculos Niveles
+    var rad = radius*0.83/5;
+    var ra1 = radius*0.1;
+    for (var i = 1; i < 6; i++) {
+      ctx.beginPath();
+      ctx.arc(0, 0, ra1+rad*(5-i), 0, 2*Math.PI);
+      if(i==5)ctx.fillStyle = '#999'; //Circulo central
+      else if(i/2!=Math.floor(i/2))ctx.fillStyle = '#222'; // Claro
+      else ctx.fillStyle = '#000'; // Obscuro
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+  function drawNumbers(ctx, radi, n, a, ii) {
+    var ang,p;
+    ctx.font = radius*0.15 + "px arial";
+    ctx.textBaseline="middle";
+    ctx.textAlign="center";
+    p = Math.ceil(a*n/segs);
+    for(var num = 1; num <= n; num++){
+      ang = (n+num-1) * Math.PI / (n/2);
+  
+      ctx.beginPath();
+      ctx.arc(Math.sin(ang)*radi*0.85,-Math.cos(ang)*radi*0.85, radius*0.08, 0, 2*Math.PI);
+      if (p==num)ctx.fillStyle = colores[ii][0];
+      else ctx.fillStyle = '#444';
+      ctx.fill();
+      ctx.closePath();
+  
+      ctx.rotate(ang);
+      ctx.translate(0, -radi*0.85);
+      ctx.rotate(-ang);
+      if(pol[ii]['patron'][num-1]==0) {
+        ctx.fillStyle = '#333';
+        ctx.fillText('X', 0, 0);
+      } else if(pol[ii]['patron'][num-1]==2) {
+        ctx.fillStyle = '#f33';
+        ctx.fillText(num.toString(), 0, 0);
+      } else {
+        if (p==num)ctx.fillStyle = '#fff';
+        else ctx.fillStyle = colores[ii][1];
+        ctx.fillText(num.toString(), 0, 0);
+      }
+  
+      var posi = {
+        x:Math.sin(ang)*radi*0.85,
+        y:-Math.cos(ang)*radi*0.85
+      };
+      // console.log(posi);
+      regiones.push({e:ii,n:n,i:num-1,pos:posi});
+      ctx.rotate(ang);
+      ctx.translate(0, radi*0.85);
+      ctx.rotate(-ang);
+    }
+  }
+  function drawTime(ctx, radius){
+    angulo++;
+    if(angulo>segs) {
+      angulo=1;
+      compas++;
+      document.getElementById("compas").value=compas;
+    }
+    // document.getElementById("angulo").value=parseInt(angulo*360/segs);
+    // document.getElementById("angulo").value=angulo;
+  
+    lista = document.getElementsByClassName('pulso');
+    for (var i = 0; i < pol.length; i++) {
+      var e = i-(-1);
+      pol[i]['pulso'] = Math.ceil(angulo*pol[i]['nmax']/segs);
+      if(pol[i]['pulso']!=lista[i].value){
+        if(pol[i]['activo']){
+          if(pol[i]['patron'][pol[i]['pulso']-1]==0) {
+          } else  {
+            beep(150, pol[i]['patron'][pol[i]['pulso']-1]-1, pol[i]['tipbip'], pol[i]['vol'], pol[i]['pulso'], pol[i]['nmax'], pol[i]['octava']);
+          }
+        }
+        lista[i].value=pol[i]['pulso'];
+      }
+    }
+    var second=((angulo-1)*Math.PI/(segs/2));
+    drawHand(ctx, second, radius*0.9, radius*0.02);
+  }
+  
+  // Dibuja la manecilla del reloj
+  function drawHand(ctx, second, length, width) {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(second);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-second);
+    ctx.closePath();
+  }
+  // --------------------------------
+  
+  // Funciones para mantener la precisión en el tiempo
+  function tiempo() {  
+      time += ti;  
+      elapsed = Math.floor(time / ti) / 10;  
+      if(Math.round(elapsed) == elapsed) { elapsed += '.0'; }  
+      var diff = (new Date().getTime() - start) - time;
+      // document.getElementById('precision').value=Math.round(diff);
+      if(diff>precisionmax){
+        precisionmax=diff;
+        if(precisionmax>1000)document.getElementById('precisionmax').value=-1;
+        else document.getElementById('precisionmax').value=Math.round(precisionmax);
+        if(precisionmax>ti)document.getElementById('precisionmax').style.backgroundColor='#a00';
+        else document.getElementById('precisionmax').style.backgroundColor='#222';
+      }
+      var r = (ti - diff);
+      // console.log("t:",ti,"r:",r);
+      if(r<0)r=0;
+      return r;
+  }
+  function clearTiempo(){
+    start = new Date().getTime(); 
+    time = 0;
+    elapsed = '0.0';
+    precisionmax=0;
+    // document.getElementById('precision').value=0;
+    document.getElementById('precisionmax').value=0;
+  }
+  // SyncStart funciones
+  function playSync(n=20) {
+    ss = Math.round((new Date().getTime()+(n*1000))/1000)*1000;
+    sti = setTimeout(syncStart,ti);
+  }
+  function syncStart() {
+    clearInterval(sti);
+    var s = new Date().getTime();
+    document.getElementById('ss').value=Math.round((ss-s)/1000);
+    if(ss<=s)playStart();
+    else sti=setTimeout(syncStart,ti);
+  }
+  // --------------------------------
+  function changeCPM(v) {
+    cpm = v;
+    document.getElementById('cpmslide').value = cpm;
+    document.getElementById('cpm').value = cpm;
+    duracompas = 60/cpm; // Duración del compás en segundos
+    segs = Math.round( (duracompas*1000) / ti ) ; // En microsegundos (millonésimas)
+    document.getElementById('segs').value = segs;
+    document.getElementById("cpmr").value=Math.round(60000000/(ti*segs))/1000;
+    updateBPM();
+  }
+  function updateBPM() {
+    var lista = document.getElementsByClassName('bpm');
+    for (var i = 0; i < lista.length; ++i) {
+      lista[i].value=Math.round(pol[i]['nmax']*60000/(ti*segs));
+    }
+  }
+  // ----------------------------------------------------------------
+```
+
+<!-- sw.js -->
+```
+  /*
+    Aquí se llama a caches.open() con el nombre de caché deseado; 
+    después se llama a cache.addAll() y se pasa la matriz de archivos. 
+    Esta es una cadena de promesas (caches.open() y cache.addAll()). 
+    El método event.waitUntil() toma una promesa y la usa para saber 
+      cuánto tarda la instalación y si se realizó correctamente.
+  */
+  var CACHE_NAME = 'metronomo-cache-v1-91';
+  var urlsToCache = [
+    '/mc/',
+    '/mc/w3.css',
+    '/mc/mc.css',
+    '/mc/favicon.png',
+    '/mc/img/cog.png',
+    '/mc/img/launcher-icon-512.png',
+    '/mc/img/launcher-icon-1x.png',
+    '/mc/img/launcher-icon-2x.png',
+    '/mc/img/launcher-icon-4x.png'
+  ];
+  
+  /*
+    Instalación de un service worker
+    Después de que se inicia el proceso de registro en una página controlada, 
+      pasemos a la perspectiva de la secuencia de comandos del service worker que 
+      se encarga del evento install.
+  */
+  self.addEventListener('install', function(event) {
+    // Realiza pasos de install
+    event.waitUntil(
+      caches.open(CACHE_NAME)
+        .then(function(cache) {
+          console.log('Cache abierto');
+          return cache.addAll(urlsToCache);
+        })
+    );
+  });
+  
+  /*
+    Cuando se instala un service worker y el usuario actualiza la página o se dirige 
+    a una diferente, el service worker comienza a recibir eventos fetch.
+  
+    Si existe una respuesta, se devuelve el valor almacenado en caché. 
+    Si no existe, se devuelve el resultado de una llamada a fetch, que realizará 
+      una solicitud de red y devolverá los datos si se puede recuperar algo de la red. 
+  
+    Almacenamos en caché solicitudes nuevas de forma acumulativa administrando la 
+      respuesta de la solicitud de fetch y luego agregándola a la caché.
+  
+    Agregamos una devolución de llamada a .then() en la solicitud fetch.
+    Cuando recibimos una respuesta, realizamos las siguientes verificaciones:
+      1. Nos aseguramos de que la respuesta sea válida.
+      2. Verificamos que el estado sea 200 en la respuesta.
+      3. Nos aseguramos de que el tipo de respuesta sea basic, lo que indica que es 
+        una solicitud proveniente de nuestro origen. Esto también significa que las 
+        solicitudes a recursos de terceros no se almacenan en caché.
+    Si pasamos las verificaciones, clonamos la respuesta. Esto es así porque, al ser 
+      la respuesta una transmisión, el cuerpo solo se puede consumir una vez. 
+    Debido a que deseamos devolver la respuesta para que el navegador la use, además 
+      de pasarla a la caché para su aplicación, debemos clonarla a fin de enviar una 
+        al navegador y otra a la caché.
+   */
+  self.addEventListener('fetch', function(event) {
+    event.respondWith(
+      caches.match(event.request)
+        .then(function(response) {
+          // Cache hit - return response
+          if (response) {
+            return response;
+          }
+  
+          // IMPORTANT: Clone the request. A request is a stream and
+          // can only be consumed once. Since we are consuming this
+          // once by cache and once by the browser for fetch, we need
+          // to clone the response.
+          var fetchRequest = event.request.clone();
+  
+          return fetch(fetchRequest).then(
+            function(response) {
+              // Check if we received a valid response
+              if(!response || response.status !== 200 || response.type !== 'basic') {
+                return response;
+              }
+  
+              // IMPORTANT: Clone the response. A response is a stream
+              // and because we want the browser to consume the response
+              // as well as the cache consuming the response, we need
+              // to clone it so we have two streams.
+              var responseToCache = response.clone();
+  
+              caches.open(CACHE_NAME)
+                .then(function(cache) {
+                  cache.put(event.request, responseToCache);
+                });
+  
+              return response;
+            }
+          );
+        })
+      );
+  });
+  
+  /*
+    Actualización de un service worker
+  
+    Cuando el service worker necesite una actualización debes seguir estos pasos:
+  
+      1. Actualiza el archivo JavaScript de tu service worker. Cuando un usuario 
+          navega por tu sitio, el navegador intenta descargar de nuevo el archivo de 
+          la secuencia de comandos que definió el service worker en segundo plano. 
+          Aunque solo haya un byte de diferencia entre el archivo del service worker 
+          y el que tiene actualmente, se lo considera nuevo.
+      2. El service worker nuevo se inicia y el evento install se activa
+      3. En este punto, el service worker antiguo todavía controla las páginas actuales, 
+          por lo que el service worker nuevo pasa a un estado de waiting.
+      4. Cuando las páginas abiertas del sitio se cierran, el service worker antiguo 
+          finaliza y el service worker nuevo toma el control.
+      5. Cuando el service worker nuevo toma el control, el evento activate 
+          correspondiente se activa.
+  
+    Una tarea común que se realiza en la devolución de llamada de activate es la 
+      administración de la caché. El motivo por el que es conveniente hacer esto 
+      durante la devolución de llamada de activate es que, si tu intención es 
+      borrar cachés antiguas durante el paso de instalación, los service workers 
+      anteriores, que controlan las páginas actuales, repentinamente no podrán 
+      obtener archivos de la caché en cuestión.
+  
+    Supongamos que hay una caché llamada 'my-site-cache-v1' y deseamos dividirla 
+      en una caché para páginas y una caché para entradas de blog. Esto significa que, 
+      en el paso de instalación, crearíamos dos cachés, 'pages-cache-v1' y 
+      'blog-posts-cache-v1', y en el paso de activación deberíamos borrar la 
+      'my-site-cache-v1' antigua.
+  
+    El siguiente código permitiría hacer esto generando un ciclo por todas las 
+    cachés del service worker y eliminando cualquier caché que no esté definida 
+    en la lista blanca de la caché.
+  */
+  self.addEventListener('activate', function(event) {
+  
+    var cacheWhitelist = ['metronomo-cache-v1-91']; //, 'blog-posts-cache-v1'];
+  
+    event.waitUntil(
+      caches.keys().then(function(cacheNames) {
+        return Promise.all(
+          cacheNames.map(function(cacheName) {
+            if (cacheWhitelist.indexOf(cacheName) === -1) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+    );
+  });
+```
+
+<!-- vars.js -->
+```
+  // ----------------------------------------------------------------
+  // Objetos y Variables globales
+  function doClave(){
+    clave = document.getElementById('clave').value;
+    var c = mrythm.parse(clave,true);
+    c = c[1];
+    for (var i = 0; i < 5; i++) {
+      if(i<c.length){
+        c[i] = String(c[i]).split('.');
+        pol[i]['activo']=true;
+        pol[i]['nmax']=c[i][0];
+        pol[i]['patron']=c[i][1].split('');
+      }else{
+        pol[i]['activo']=false;
+      }
+    }
+    interfaz();
+    drawClock();
+  }
+  function readClave(){
+    var c = [];
+    for (var i = 0; i < 5; i++) {
+      if(pol[i]['activo']){
+        c.push(pol[i]['nmax']+'.'+mrythm.juntar(mrythm.binary2clave(pol[i]['patron'])));
+      }
+    }
+    clave = c.join('/');
+    document.getElementById('clave').value=clave;
+  }
+  document.getElementById('clave').onkeyup = function(event){
+    this.value = mrythm.filtrar(this.value);
+    if (event.keyCode === 13) {
+      doClave();
+      event.preventDefault();
+    }
+  };
+  // Defaults de Configuración
+  volu = [0.5,0.8]; // Volumen default de configuración
+  notu = [0,5]; // Nota default de configuración
+  // Canvas y contexto
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  // clave inicial
+  var clavel = document.getElementById("clave");
+  clavel.value=clave;
+  // Más variables
+  var colores = [
+    ['#099','#9ff'],
+    ['#eb0','#fc9'],
+    ['#e0e','#f9f'],
+    ['#4e4','#9f9'],
+    ['#44e','#99f'],
+  ];
+  var actx = null; // Web audio context
+  var regiones = [];
+  var isPlaying = false;
+  var radius = canvas.height / 2;
+  var angulo = 0;
+  var cpm = 30;
+  var duracompas = 60/cpm; // Duración del compás en segundos
+  // DEFINE SEGS --------------
+  // var segs = 70; // Pasos en el círculo
+  // var ti = Math.round( (duracompas*1000*1000) / segs ) / 1000; // En microsegundos (millonésimas)
+  // DEFINE TI   --------------
+  
+  var segs = Math.round( (duracompas*1000) / ti ); // Pasos en el círculo
+  // --------------------------
+  var compas = 0;
+  var sto;
+  var vol = 0.75;
+  var ss,sti;
+  ctx.translate(radius, radius); // Movemos el centro
+  var bordep = 0.05; // Porcentaje de borde (0 - 1)
+  radius = radius * (1-bordep); // Un poco más pequeño que el canvas
+  // Variables para mantener la precisión en el tiempo
+  var start = null,  
+      time = 0,  
+      elapsed = '0.0';
+  var precisionmax = 0;
+  
+  // Definiciones interfaz ----------
+  // Simples
+  document.getElementById("ti").value=ti;
+  document.getElementById("segs").value=segs;
+  document.getElementById("vol").value=vol;
+  // 60000/(ti*segs) // Tiempo por vuelta en ms / minuto
+  document.getElementById("cpm").value=cpm;
+  document.getElementById("cpmslide").value=cpm;
+  document.getElementById("cpmr").value=Math.round(60000000/(ti*segs))/1000;
+  document.getElementById("compas").value=compas;
+  
+  document.getElementById("volu1").value=volu[0];
+  document.getElementById("volu2").value=volu[1];
+  document.getElementById("notu1").value=notu[0];
+  document.getElementById("notu2").value=notu[1];
+  
+  // --------------------------------------------------
+  // Definiciones interfaz ----------
+  function interfaz(){
+    // Complejas
+    var claNames = ['nmax','octava','tipbip','vol'];
+    var lista;
+    for (var j = 0; j < claNames.length; j++) {
+      lista = document.getElementsByClassName(claNames[j]);
+      for (var i = 0; i < lista.length; ++i) {
+        lista[i].value=pol[i][claNames[j]];
+      }
+    }
+    lista = document.getElementsByClassName('activo');
+    for (var i = 0; i < lista.length; ++i) {
+      lista[i].checked=pol[i]['activo'];
+    }
+    updateBPM();
+    lista = document.getElementsByClassName('nmax');
+    for (var i = 0; i < lista.length; ++i) {
+      (function(index){
+        lista[index].onchange = function() {
+          pol[index]['nmax']=this.value;
+          var mem = pol[index]['patron'];
+          pol[index]['patron']=[];
+          for (var i = 0; i < pol[index]['nmax']; i++) {
+            if(mem[i]>=0)pol[index]['patron'].push(mem[i]);
+            else pol[index]['patron'].push(1);
+          }
+          document.getElementsByClassName('bpm')[index].value=Math.round(this.value*60000/(ti*segs));
+          drawClock();
+          readClave();
+        };
+      }(i));
+    }
+    lista = document.getElementsByClassName('octava');
+    for (var i = 0; i < lista.length; ++i) {
+      (function(index){
+        lista[index].onchange = function() {
+          pol[index]['octava']=this.value;
+        };
+      }(i));
+    }
+    lista = document.getElementsByClassName('tipbip');
+    for (var i = 0; i < lista.length; ++i) {
+      (function(index){
+        lista[index].onchange = function() {
+          pol[index]['tipbip']=this.value;
+        };
+      }(i));
+    }
+    lista = document.getElementsByClassName('vol');
+    for (var i = 0; i < lista.length; ++i) {
+      (function(index){
+        lista[index].onchange = function() {
+          pol[index]['vol']=parseFloat(this.value);
+        };
+        lista[index].ondblclick = function() {
+          this.value=0.5;
+          pol[index]['vol']=0.5;
+        };
+      }(i));
+    }
+    lista = document.getElementsByClassName('activo');
+    for (var i = 0; i < lista.length; ++i) {
+      (function(index){
+        lista[index].onchange = function() {
+          pol[index]['activo']=this.checked;
+          drawClock();
+          readClave();
+        };
+      }(i));
+    }
+  }
+  
+  // --------------------------------------------------
+  // Iniciar
+  doClave();
+  drawFace(ctx,radius);
+  interfaz();
+  drawClock();
+  
+  // --------------------------------------------------
+  // Listeners ----------------------
+  // canvas onclick
+  canvas.onclick=function (evt) {
+      var mousePos = getMousePos(canvas, evt);
+      for (var i = 0; i < regiones.length; i++) {
+        if(Math.abs(regiones[i].pos.x-mousePos.x)<radius*0.08 && Math.abs(regiones[i].pos.y-mousePos.y)<radius*0.08) {
+          // console.log("Poli: ",pol[regiones[i].e]['patron']);
+          if(pol[regiones[i].e]['patron'][regiones[i].i]>1)pol[regiones[i].e]['patron'][regiones[i].i]=0;
+          else if(pol[regiones[i].e]['patron'][regiones[i].i]==1)pol[regiones[i].e]['patron'][regiones[i].i]=2;
+          else pol[regiones[i].e]['patron'][regiones[i].i]=1;
+          // console.log("Poli: ",pol[regiones[i].e]['patron']);
+          drawClock();
+          readClave();
+        }
+      }
+  };
+  // Mas listeners
+  document.getElementById('canvasResizer').onclick = function(){
+    this.style.width=this.style.height;
+  };
+  
+  document.getElementById('compas').onchange = function() {
+    compas=this.value;
+  };
+  document.getElementById('vol').onchange = function() {
+    vol=this.value;
+  };
+  document.getElementById('vol').ondblclick = function() {
+    this.value = 0.5;
+    vol = 0.5;
+  };
+  document.getElementById('volu1').onchange = function() {
+    volu[0]=this.value;
+  };
+  document.getElementById('volu2').onchange = function() {
+    volu[1]=this.value;
+  };
+  document.getElementById('notu1').onchange = function() {
+    notu[0]=this.value;
+  };
+  document.getElementById('notu2').onchange = function() {
+    notu[1]=this.value;
+  };
+  document.getElementById('cpmslide').onchange = function() {
+    changeCPM(this.value);
+  };
+  document.getElementById('cpm').onchange = function() {
+    changeCPM(this.value);
+  };
+  document.getElementById('playButton').onclick = function() {
+    if(isPlaying){
+      this.textContent="PLAY";
+      toggleClass('playButton',"w3-green");
+      toggleClass('playButton',"w3-red");
+      isPlaying=false;
+      playStop();
+    }else{
+      actx = new AudioContext();
+      this.textContent="STOP";
+      toggleClass('playButton',"w3-green");
+      toggleClass('playButton',"w3-red");
+      isPlaying=true;
+      compas = 1;
+      document.getElementById('compas').value=compas;
+      playStart();
+    }
+  };
+  document.getElementById('playSync').onclick = function() {
+    playSync(document.getElementById('ss').value);
+  };
+  document.getElementById('ti').onchange = function() {
+    ti=this.value;
+    segs = Math.round( (duracompas*1000) / ti ) ;
+    document.getElementById("segs").value=segs;
+    document.getElementById("cpmr").value=Math.round(60000000/(ti*segs))/1000;
+    updateBPM();
+  };
+  document.getElementById('segs').onchange = function() {
+    segs=this.value;
+    ti = Math.round( (duracompas*1000*1000) / segs ) / 1000 ;
+    document.getElementById("ti").value=ti;
+    document.getElementById("cpmr").value=Math.round(60000000/(ti*segs))/1000;
+    updateBPM();
+  };
+```
+
+<!-- w3.css -->
+```
+  /* W3.CSS 4.13 June 2019 by Jan Egil and Borge Refsnes */
+  html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+  /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+  html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+  article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}summary{display:list-item}
+  audio,canvas,progress,video{display:inline-block}progress{vertical-align:baseline}
+  audio:not([controls]){display:none;height:0}[hidden],template{display:none}
+  a{background-color:transparent}a:active,a:hover{outline-width:0}
+  abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}
+  b,strong{font-weight:bolder}dfn{font-style:italic}mark{background:#ff0;color:#000}
+  small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+  sub{bottom:-0.25em}sup{top:-0.5em}figure{margin:1em 40px}img{border-style:none}
+  code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}hr{box-sizing:content-box;height:0;overflow:visible}
+  button,input,select,textarea,optgroup{font:inherit;margin:0}optgroup{font-weight:bold}
+  button,input{overflow:visible}button,select{text-transform:none}
+  button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button}
+  button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}
+  button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}
+  fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}
+  legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}
+  [type=checkbox],[type=radio]{padding:0}
+  [type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}
+  [type=search]{-webkit-appearance:textfield;outline-offset:-2px}
+  [type=search]::-webkit-search-decoration{-webkit-appearance:none}
+  ::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+  /* End extract */
+  html,body{font-family:Verdana,sans-serif;font-size:15px;line-height:1.5}html{overflow-x:hidden}
+  h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}.w3-serif{font-family:serif}
+  h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}
+  hr{border:0;border-top:1px solid #eee;margin:20px 0}
+  .w3-image{max-width:100%;height:auto}img{vertical-align:middle}a{color:inherit}
+  .w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;width:100%;display:table}.w3-table-all{border:1px solid #ccc}
+  .w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}.w3-striped tbody tr:nth-child(even){background-color:#f1f1f1}
+  .w3-table-all tr:nth-child(odd){background-color:#fff}.w3-table-all tr:nth-child(even){background-color:#f1f1f1}
+  .w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{background-color:#ccc}.w3-centered tr th,.w3-centered tr td{text-align:center}
+  .w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+  .w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}
+  .w3-btn,.w3-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
+  .w3-btn:hover{box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+  .w3-btn,.w3-button{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}   
+  .w3-disabled,.w3-btn:disabled,.w3-button:disabled{cursor:not-allowed;opacity:0.3}.w3-disabled *,:disabled *{pointer-events:none}
+  .w3-btn.w3-disabled:hover,.w3-btn:disabled:hover{box-shadow:none}
+  .w3-badge,.w3-tag{background-color:#000;color:#fff;display:inline-block;padding-left:8px;padding-right:8px;text-align:center}.w3-badge{border-radius:50%}
+  .w3-ul{list-style-type:none;padding:0;margin:0}.w3-ul li{padding:8px 16px;border-bottom:1px solid #ddd}.w3-ul li:last-child{border-bottom:none}
+  .w3-tooltip,.w3-display-container{position:relative}.w3-tooltip .w3-text{display:none}.w3-tooltip:hover .w3-text{display:inline-block}
+  .w3-ripple:active{opacity:0.5}.w3-ripple{transition:opacity 0s}
+  .w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}
+  .w3-select{padding:9px 0;width:100%;border:none;border-bottom:1px solid #ccc}
+  .w3-dropdown-click,.w3-dropdown-hover{position:relative;display:inline-block;cursor:pointer}
+  .w3-dropdown-hover:hover .w3-dropdown-content{display:block}
+  .w3-dropdown-hover:first-child,.w3-dropdown-click:hover{background-color:#ccc;color:#000}
+  .w3-dropdown-hover:hover > .w3-button:first-child,.w3-dropdown-click:hover > .w3-button:first-child{background-color:#ccc;color:#000}
+  .w3-dropdown-content{cursor:auto;color:#000;background-color:#fff;display:none;position:absolute;min-width:160px;margin:0;padding:0;z-index:1}
+  .w3-check,.w3-radio{width:24px;height:24px;position:relative;top:6px}
+  .w3-sidebar{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
+  .w3-bar-block .w3-dropdown-hover,.w3-bar-block .w3-dropdown-click{width:100%}
+  .w3-bar-block .w3-dropdown-hover .w3-dropdown-content,.w3-bar-block .w3-dropdown-click .w3-dropdown-content{min-width:100%}
+  .w3-bar-block .w3-dropdown-hover .w3-button,.w3-bar-block .w3-dropdown-click .w3-button{width:100%;text-align:left;padding:8px 16px}
+  .w3-main,#main{transition:margin-left .4s}
+  .w3-modal{z-index:3;display:none;padding-top:100px;position:fixed;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgb(0,0,0);background-color:rgba(0,0,0,0.4)}
+  .w3-modal-content{margin:auto;background-color:#fff;position:relative;padding:0;outline:0;width:600px}
+  .w3-bar{width:100%;overflow:hidden}.w3-center .w3-bar{display:inline-block;width:auto}
+  .w3-bar .w3-bar-item{padding:8px 16px;float:left;width:auto;border:none;display:block;outline:0}
+  .w3-bar .w3-dropdown-hover,.w3-bar .w3-dropdown-click{position:static;float:left}
+  .w3-bar .w3-button{white-space:normal}
+  .w3-bar-block .w3-bar-item{width:100%;display:block;padding:8px 16px;text-align:left;border:none;white-space:normal;float:none;outline:0}
+  .w3-bar-block.w3-center .w3-bar-item{text-align:center}.w3-block{display:block;width:100%}
+  .w3-responsive{display:block;overflow-x:auto}
+  .w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,
+  .w3-cell-row:before,.w3-cell-row:after,.w3-clear:after,.w3-clear:before,.w3-bar:before,.w3-bar:after{content:"";display:table;clear:both}
+  .w3-col,.w3-half,.w3-third,.w3-twothird,.w3-threequarter,.w3-quarter{float:left;width:100%}
+  .w3-col.s1{width:8.33333%}.w3-col.s2{width:16.66666%}.w3-col.s3{width:24.99999%}.w3-col.s4{width:33.33333%}
+  .w3-col.s5{width:41.66666%}.w3-col.s6{width:49.99999%}.w3-col.s7{width:58.33333%}.w3-col.s8{width:66.66666%}
+  .w3-col.s9{width:74.99999%}.w3-col.s10{width:83.33333%}.w3-col.s11{width:91.66666%}.w3-col.s12{width:99.99999%}
+  @media (min-width:601px){.w3-col.m1{width:8.33333%}.w3-col.m2{width:16.66666%}.w3-col.m3,.w3-quarter{width:24.99999%}.w3-col.m4,.w3-third{width:33.33333%}
+  .w3-col.m5{width:41.66666%}.w3-col.m6,.w3-half{width:49.99999%}.w3-col.m7{width:58.33333%}.w3-col.m8,.w3-twothird{width:66.66666%}
+  .w3-col.m9,.w3-threequarter{width:74.99999%}.w3-col.m10{width:83.33333%}.w3-col.m11{width:91.66666%}.w3-col.m12{width:99.99999%}}
+  @media (min-width:993px){.w3-col.l1{width:8.33333%}.w3-col.l2{width:16.66666%}.w3-col.l3{width:24.99999%}.w3-col.l4{width:33.33333%}
+  .w3-col.l5{width:41.66666%}.w3-col.l6{width:49.99999%}.w3-col.l7{width:58.33333%}.w3-col.l8{width:66.66666%}
+  .w3-col.l9{width:74.99999%}.w3-col.l10{width:83.33333%}.w3-col.l11{width:91.66666%}.w3-col.l12{width:99.99999%}}
+  .w3-rest{overflow:hidden}.w3-stretch{margin-left:-16px;margin-right:-16px}
+  .w3-content,.w3-auto{margin-left:auto;margin-right:auto}.w3-content{max-width:980px}.w3-auto{max-width:1140px}
+  .w3-cell-row{display:table;width:100%}.w3-cell{display:table-cell}
+  .w3-cell-top{vertical-align:top}.w3-cell-middle{vertical-align:middle}.w3-cell-bottom{vertical-align:bottom}
+  .w3-hide{display:none!important}.w3-show-block,.w3-show{display:block!important}.w3-show-inline-block{display:inline-block!important}
+  @media (max-width:1205px){.w3-auto{max-width:95%}}
+  @media (max-width:600px){.w3-modal-content{margin:0 10px;width:auto!important}.w3-modal{padding-top:30px}
+  .w3-dropdown-hover.w3-mobile .w3-dropdown-content,.w3-dropdown-click.w3-mobile .w3-dropdown-content{position:relative}	
+  .w3-hide-small{display:none!important}.w3-mobile{display:block;width:100%!important}.w3-bar-item.w3-mobile,.w3-dropdown-hover.w3-mobile,.w3-dropdown-click.w3-mobile{text-align:center}
+  .w3-dropdown-hover.w3-mobile,.w3-dropdown-hover.w3-mobile .w3-btn,.w3-dropdown-hover.w3-mobile .w3-button,.w3-dropdown-click.w3-mobile,.w3-dropdown-click.w3-mobile .w3-btn,.w3-dropdown-click.w3-mobile .w3-button{width:100%}}
+  @media (max-width:768px){.w3-modal-content{width:500px}.w3-modal{padding-top:50px}}
+  @media (min-width:993px){.w3-modal-content{width:900px}.w3-hide-large{display:none!important}.w3-sidebar.w3-collapse{display:block!important}}
+  @media (max-width:992px) and (min-width:601px){.w3-hide-medium{display:none!important}}
+  @media (max-width:992px){.w3-sidebar.w3-collapse{display:none}.w3-main{margin-left:0!important;margin-right:0!important}.w3-auto{max-width:100%}}
+  .w3-top,.w3-bottom{position:fixed;width:100%;z-index:1}.w3-top{top:0}.w3-bottom{bottom:0}
+  .w3-overlay{position:fixed;display:none;width:100%;height:100%;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.5);z-index:2}
+  .w3-display-topleft{position:absolute;left:0;top:0}.w3-display-topright{position:absolute;right:0;top:0}
+  .w3-display-bottomleft{position:absolute;left:0;bottom:0}.w3-display-bottomright{position:absolute;right:0;bottom:0}
+  .w3-display-middle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%)}
+  .w3-display-left{position:absolute;top:50%;left:0%;transform:translate(0%,-50%);-ms-transform:translate(-0%,-50%)}
+  .w3-display-right{position:absolute;top:50%;right:0%;transform:translate(0%,-50%);-ms-transform:translate(0%,-50%)}
+  .w3-display-topmiddle{position:absolute;left:50%;top:0;transform:translate(-50%,0%);-ms-transform:translate(-50%,0%)}
+  .w3-display-bottommiddle{position:absolute;left:50%;bottom:0;transform:translate(-50%,0%);-ms-transform:translate(-50%,0%)}
+  .w3-display-container:hover .w3-display-hover{display:block}.w3-display-container:hover span.w3-display-hover{display:inline-block}.w3-display-hover{display:none}
+  .w3-display-position{position:absolute}
+  .w3-circle{border-radius:50%}
+  .w3-round-small{border-radius:2px}.w3-round,.w3-round-medium{border-radius:4px}.w3-round-large{border-radius:8px}.w3-round-xlarge{border-radius:16px}.w3-round-xxlarge{border-radius:32px}
+  .w3-row-padding,.w3-row-padding>.w3-half,.w3-row-padding>.w3-third,.w3-row-padding>.w3-twothird,.w3-row-padding>.w3-threequarter,.w3-row-padding>.w3-quarter,.w3-row-padding>.w3-col{padding:0 8px}
+  .w3-container,.w3-panel{padding:0.01em 16px}.w3-panel{margin-top:16px;margin-bottom:16px}
+  .w3-code,.w3-codespan{font-family:Consolas,"courier new";font-size:16px}
+  .w3-code{width:auto;background-color:#fff;padding:8px 12px;border-left:4px solid #4CAF50;word-wrap:break-word}
+  .w3-codespan{color:crimson;background-color:#f1f1f1;padding-left:4px;padding-right:4px;font-size:110%}
+  .w3-card,.w3-card-2{box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
+  .w3-card-4,.w3-hover-shadow:hover{box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19)}
+  .w3-spin{animation:w3-spin 2s infinite linear}@keyframes w3-spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
+  .w3-animate-fading{animation:fading 10s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
+  .w3-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
+  .w3-animate-top{position:relative;animation:animatetop 0.4s}@keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}}
+  .w3-animate-left{position:relative;animation:animateleft 0.4s}@keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}
+  .w3-animate-right{position:relative;animation:animateright 0.4s}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
+  .w3-animate-bottom{position:relative;animation:animatebottom 0.4s}@keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
+  .w3-animate-zoom {animation:animatezoom 0.6s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
+  .w3-animate-input{transition:width 0.4s ease-in-out}.w3-animate-input:focus{width:100%!important}
+  .w3-opacity,.w3-hover-opacity:hover{opacity:0.60}.w3-opacity-off,.w3-hover-opacity-off:hover{opacity:1}
+  .w3-opacity-max{opacity:0.25}.w3-opacity-min{opacity:0.75}
+  .w3-greyscale-max,.w3-grayscale-max,.w3-hover-greyscale:hover,.w3-hover-grayscale:hover{filter:grayscale(100%)}
+  .w3-greyscale,.w3-grayscale{filter:grayscale(75%)}.w3-greyscale-min,.w3-grayscale-min{filter:grayscale(50%)}
+  .w3-sepia{filter:sepia(75%)}.w3-sepia-max,.w3-hover-sepia:hover{filter:sepia(100%)}.w3-sepia-min{filter:sepia(50%)}
+  .w3-tiny{font-size:10px!important}.w3-small{font-size:12px!important}.w3-medium{font-size:15px!important}.w3-large{font-size:18px!important}
+  .w3-xlarge{font-size:24px!important}.w3-xxlarge{font-size:36px!important}.w3-xxxlarge{font-size:48px!important}.w3-jumbo{font-size:64px!important}
+  .w3-left-align{text-align:left!important}.w3-right-align{text-align:right!important}.w3-justify{text-align:justify!important}.w3-center{text-align:center!important}
+  .w3-border-0{border:0!important}.w3-border{border:1px solid #ccc!important}
+  .w3-border-top{border-top:1px solid #ccc!important}.w3-border-bottom{border-bottom:1px solid #ccc!important}
+  .w3-border-left{border-left:1px solid #ccc!important}.w3-border-right{border-right:1px solid #ccc!important}
+  .w3-topbar{border-top:6px solid #ccc!important}.w3-bottombar{border-bottom:6px solid #ccc!important}
+  .w3-leftbar{border-left:6px solid #ccc!important}.w3-rightbar{border-right:6px solid #ccc!important}
+  .w3-section,.w3-code{margin-top:16px!important;margin-bottom:16px!important}
+  .w3-margin{margin:16px!important}.w3-margin-top{margin-top:16px!important}.w3-margin-bottom{margin-bottom:16px!important}
+  .w3-margin-left{margin-left:16px!important}.w3-margin-right{margin-right:16px!important}
+  .w3-padding-small{padding:4px 8px!important}.w3-padding{padding:8px 16px!important}.w3-padding-large{padding:12px 24px!important}
+  .w3-padding-16{padding-top:16px!important;padding-bottom:16px!important}.w3-padding-24{padding-top:24px!important;padding-bottom:24px!important}
+  .w3-padding-32{padding-top:32px!important;padding-bottom:32px!important}.w3-padding-48{padding-top:48px!important;padding-bottom:48px!important}
+  .w3-padding-64{padding-top:64px!important;padding-bottom:64px!important}
+  .w3-left{float:left!important}.w3-right{float:right!important}
+  .w3-button:hover{color:#000!important;background-color:#ccc!important}
+  .w3-transparent,.w3-hover-none:hover{background-color:transparent!important}
+  .w3-hover-none:hover{box-shadow:none!important}
+  /* Colors */
+  .w3-amber,.w3-hover-amber:hover{color:#000!important;background-color:#ffc107!important}
+  .w3-aqua,.w3-hover-aqua:hover{color:#000!important;background-color:#00ffff!important}
+  .w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#2196F3!important}
+  .w3-light-blue,.w3-hover-light-blue:hover{color:#000!important;background-color:#87CEEB!important}
+  .w3-brown,.w3-hover-brown:hover{color:#fff!important;background-color:#795548!important}
+  .w3-cyan,.w3-hover-cyan:hover{color:#000!important;background-color:#00bcd4!important}
+  .w3-blue-grey,.w3-hover-blue-grey:hover,.w3-blue-gray,.w3-hover-blue-gray:hover{color:#fff!important;background-color:#607d8b!important}
+  .w3-green,.w3-hover-green:hover{color:#fff!important;background-color:#4CAF50!important}
+  .w3-light-green,.w3-hover-light-green:hover{color:#000!important;background-color:#8bc34a!important}
+  .w3-indigo,.w3-hover-indigo:hover{color:#fff!important;background-color:#3f51b5!important}
+  .w3-khaki,.w3-hover-khaki:hover{color:#000!important;background-color:#f0e68c!important}
+  .w3-lime,.w3-hover-lime:hover{color:#000!important;background-color:#cddc39!important}
+  .w3-orange,.w3-hover-orange:hover{color:#000!important;background-color:#ff9800!important}
+  .w3-deep-orange,.w3-hover-deep-orange:hover{color:#fff!important;background-color:#ff5722!important}
+  .w3-pink,.w3-hover-pink:hover{color:#fff!important;background-color:#e91e63!important}
+  .w3-purple,.w3-hover-purple:hover{color:#fff!important;background-color:#9c27b0!important}
+  .w3-deep-purple,.w3-hover-deep-purple:hover{color:#fff!important;background-color:#673ab7!important}
+  .w3-red,.w3-hover-red:hover{color:#fff!important;background-color:#f44336!important}
+  .w3-sand,.w3-hover-sand:hover{color:#000!important;background-color:#fdf5e6!important}
+  .w3-teal,.w3-hover-teal:hover{color:#fff!important;background-color:#009688!important}
+  .w3-yellow,.w3-hover-yellow:hover{color:#000!important;background-color:#ffeb3b!important}
+  .w3-white,.w3-hover-white:hover{color:#000!important;background-color:#fff!important}
+  .w3-black,.w3-hover-black:hover{color:#fff!important;background-color:#000!important}
+  .w3-grey,.w3-hover-grey:hover,.w3-gray,.w3-hover-gray:hover{color:#000!important;background-color:#9e9e9e!important}
+  .w3-light-grey,.w3-hover-light-grey:hover,.w3-light-gray,.w3-hover-light-gray:hover{color:#000!important;background-color:#f1f1f1!important}
+  .w3-dark-grey,.w3-hover-dark-grey:hover,.w3-dark-gray,.w3-hover-dark-gray:hover{color:#fff!important;background-color:#616161!important}
+  .w3-pale-red,.w3-hover-pale-red:hover{color:#000!important;background-color:#ffdddd!important}
+  .w3-pale-green,.w3-hover-pale-green:hover{color:#000!important;background-color:#ddffdd!important}
+  .w3-pale-yellow,.w3-hover-pale-yellow:hover{color:#000!important;background-color:#ffffcc!important}
+  .w3-pale-blue,.w3-hover-pale-blue:hover{color:#000!important;background-color:#ddffff!important}
+  .w3-text-amber,.w3-hover-text-amber:hover{color:#ffc107!important}
+  .w3-text-aqua,.w3-hover-text-aqua:hover{color:#00ffff!important}
+  .w3-text-blue,.w3-hover-text-blue:hover{color:#2196F3!important}
+  .w3-text-light-blue,.w3-hover-text-light-blue:hover{color:#87CEEB!important}
+  .w3-text-brown,.w3-hover-text-brown:hover{color:#795548!important}
+  .w3-text-cyan,.w3-hover-text-cyan:hover{color:#00bcd4!important}
+  .w3-text-blue-grey,.w3-hover-text-blue-grey:hover,.w3-text-blue-gray,.w3-hover-text-blue-gray:hover{color:#607d8b!important}
+  .w3-text-green,.w3-hover-text-green:hover{color:#4CAF50!important}
+  .w3-text-light-green,.w3-hover-text-light-green:hover{color:#8bc34a!important}
+  .w3-text-indigo,.w3-hover-text-indigo:hover{color:#3f51b5!important}
+  .w3-text-khaki,.w3-hover-text-khaki:hover{color:#b4aa50!important}
+  .w3-text-lime,.w3-hover-text-lime:hover{color:#cddc39!important}
+  .w3-text-orange,.w3-hover-text-orange:hover{color:#ff9800!important}
+  .w3-text-deep-orange,.w3-hover-text-deep-orange:hover{color:#ff5722!important}
+  .w3-text-pink,.w3-hover-text-pink:hover{color:#e91e63!important}
+  .w3-text-purple,.w3-hover-text-purple:hover{color:#9c27b0!important}
+  .w3-text-deep-purple,.w3-hover-text-deep-purple:hover{color:#673ab7!important}
+  .w3-text-red,.w3-hover-text-red:hover{color:#f44336!important}
+  .w3-text-sand,.w3-hover-text-sand:hover{color:#fdf5e6!important}
+  .w3-text-teal,.w3-hover-text-teal:hover{color:#009688!important}
+  .w3-text-yellow,.w3-hover-text-yellow:hover{color:#d2be0e!important}
+  .w3-text-white,.w3-hover-text-white:hover{color:#fff!important}
+  .w3-text-black,.w3-hover-text-black:hover{color:#000!important}
+  .w3-text-grey,.w3-hover-text-grey:hover,.w3-text-gray,.w3-hover-text-gray:hover{color:#757575!important}
+  .w3-text-light-grey,.w3-hover-text-light-grey:hover,.w3-text-light-gray,.w3-hover-text-light-gray:hover{color:#f1f1f1!important}
+  .w3-text-dark-grey,.w3-hover-text-dark-grey:hover,.w3-text-dark-gray,.w3-hover-text-dark-gray:hover{color:#3a3a3a!important}
+  .w3-border-amber,.w3-hover-border-amber:hover{border-color:#ffc107!important}
+  .w3-border-aqua,.w3-hover-border-aqua:hover{border-color:#00ffff!important}
+  .w3-border-blue,.w3-hover-border-blue:hover{border-color:#2196F3!important}
+  .w3-border-light-blue,.w3-hover-border-light-blue:hover{border-color:#87CEEB!important}
+  .w3-border-brown,.w3-hover-border-brown:hover{border-color:#795548!important}
+  .w3-border-cyan,.w3-hover-border-cyan:hover{border-color:#00bcd4!important}
+  .w3-border-blue-grey,.w3-hover-border-blue-grey:hover,.w3-border-blue-gray,.w3-hover-border-blue-gray:hover{border-color:#607d8b!important}
+  .w3-border-green,.w3-hover-border-green:hover{border-color:#4CAF50!important}
+  .w3-border-light-green,.w3-hover-border-light-green:hover{border-color:#8bc34a!important}
+  .w3-border-indigo,.w3-hover-border-indigo:hover{border-color:#3f51b5!important}
+  .w3-border-khaki,.w3-hover-border-khaki:hover{border-color:#f0e68c!important}
+  .w3-border-lime,.w3-hover-border-lime:hover{border-color:#cddc39!important}
+  .w3-border-orange,.w3-hover-border-orange:hover{border-color:#ff9800!important}
+  .w3-border-deep-orange,.w3-hover-border-deep-orange:hover{border-color:#ff5722!important}
+  .w3-border-pink,.w3-hover-border-pink:hover{border-color:#e91e63!important}
+  .w3-border-purple,.w3-hover-border-purple:hover{border-color:#9c27b0!important}
+  .w3-border-deep-purple,.w3-hover-border-deep-purple:hover{border-color:#673ab7!important}
+  .w3-border-red,.w3-hover-border-red:hover{border-color:#f44336!important}
+  .w3-border-sand,.w3-hover-border-sand:hover{border-color:#fdf5e6!important}
+  .w3-border-teal,.w3-hover-border-teal:hover{border-color:#009688!important}
+  .w3-border-yellow,.w3-hover-border-yellow:hover{border-color:#ffeb3b!important}
+  .w3-border-white,.w3-hover-border-white:hover{border-color:#fff!important}
+  .w3-border-black,.w3-hover-border-black:hover{border-color:#000!important}
+  .w3-border-grey,.w3-hover-border-grey:hover,.w3-border-gray,.w3-hover-border-gray:hover{border-color:#9e9e9e!important}
+  .w3-border-light-grey,.w3-hover-border-light-grey:hover,.w3-border-light-gray,.w3-hover-border-light-gray:hover{border-color:#f1f1f1!important}
+  .w3-border-dark-grey,.w3-hover-border-dark-grey:hover,.w3-border-dark-gray,.w3-hover-border-dark-gray:hover{border-color:#616161!important}
+  .w3-border-pale-red,.w3-hover-border-pale-red:hover{border-color:#ffe7e7!important}.w3-border-pale-green,.w3-hover-border-pale-green:hover{border-color:#e7ffe7!important}
+  .w3-border-pale-yellow,.w3-hover-border-pale-yellow:hover{border-color:#ffffcc!important}.w3-border-pale-blue,.w3-hover-border-pale-blue:hover{border-color:#e7ffff!important}
+```
+
