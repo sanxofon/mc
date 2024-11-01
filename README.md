@@ -3,13 +3,11 @@
 [![Issues](https://img.shields.io/github/issues/sanxofon/mc)](https://github.com/sanxofon/mc/issues)
 [![License: GNU](https://img.shields.io/badge/License-GNU-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-
 Un metrónomo polirrítmico e irregular para músicos, creado como una PWA (Progressive Web App) para usar offline.
 
 ## Demo
 
 Puedes probar la demo en vivo aquí: [https://sanxofon.github.io/mc/](https://sanxofon.github.io/mc/)
-
 
 ## Características
 
@@ -20,10 +18,10 @@ Puedes probar la demo en vivo aquí: [https://sanxofon.github.io/mc/](https://sa
 * Interfaz visual intuitiva que muestra el estado de cada pista.
 * Funciona offline gracias a la tecnología PWA.
 
-
 ## Instalación
 
 Para usar el metrónomo localmente, simplemente clona este repositorio:
 
 ```bash
 git clone https://github.com/sanxofon/mc.git
+```
