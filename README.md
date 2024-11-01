@@ -12,7 +12,7 @@ Puedes probar la demo en vivo aquí: [https://sanxofon.github.io/mc/](https://sa
 ## Características
 
 * Define hasta 5 pistas de ritmo independientes.
-* Ajusta el número de pulsos, la octava y el volumen de cada pista.
+* Ajusta el número de pulsos, la sonacento y el volumen de cada pista.
 * Crea patrones rítmicos complejos con acentos y silencios.
 * Control preciso del tempo (CPM - Compases Por Minuto).
 * Interfaz visual intuitiva que muestra el estado de cada pista.

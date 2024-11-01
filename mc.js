@@ -1,3 +1,6 @@
+// ----------------------- CAMBIOS v.2 - ini -----------------------
+// -- VERSION 1.9 con oscilador --
+/*
 //Sonido con ocilador
 var beep = (function () {
   return function (duration, golpe, type, vo, nota, n, oct, finishedCallback) {
@@ -21,6 +24,7 @@ var beep = (function () {
     // console.log('hertz',hertz);
 
     var osc = actx.createOscillator();
+    // songolpe
     var types = [
       'sine', // A sine wave. This is the default value.
       'square', // A square wave with a duty cycle of 0.5; that is, the signal is "high" for half of each period.
@@ -64,6 +68,10 @@ function getFrequency(nota,n,oct) {
   // console.log("OT:",nota,n,oct);
   return 32.70 * Math.pow(2, (nota-1) / n);
 }
+*/
+// ----------------------- CAMBIOS v.2 - fin -----------------------
+
+
 function getMousePos(c, e) {
     var rect = c.getBoundingClientRect();
     return {
@@ -191,14 +199,36 @@ function drawTime(ctx, radius){
     var e = i-(-1);
     pol[i]['pulso'] = Math.ceil(angulo*pol[i]['nmax']/segs);
     if(pol[i]['pulso']!=lista[i].value){
+
+      // ----------------------- CAMBIOS v.2 - ini -----------------------
+      // -- VERSION 1.9 con oscilador --
+      /* 
       if(pol[i]['activo']){
         if(pol[i]['patron'][pol[i]['pulso']-1]==0) {
         } else  {
-          beep(150, pol[i]['patron'][pol[i]['pulso']-1]-1, pol[i]['tipbip'], pol[i]['vol'], pol[i]['pulso'], pol[i]['nmax'], pol[i]['octava']);
+          beep(150, pol[i]['patron'][pol[i]['pulso']-1]-1, pol[i]['songolpe'], pol[i]['vol'], pol[i]['pulso'], pol[i]['nmax'], pol[i]['sonacento']);
         }
       }
+      */
+
+      // -- VERSION 2.0 con Howler.js --
+      if(pol[i]['activo']){
+        if(pol[i]['patron'][pol[i]['pulso']-1] !== 0) { // Si no es silencio
+          let indiceSonido = pol[i]['patron'][pol[i]['pulso']-1] - 1;
+          // Verificar si el índice de sonido es válido
+          if (indiceSonido >= 0 && indiceSonido < sonidos.length) {
+            const tambor = indiceSonido=='0' ? pol[i]['songolpe']:pol[i]['sonacento'];
+            sonidos[tambor].volume(Math.pow(vol,2) * pol[i]['vol'] * volu[pol[i]['patron'][pol[i]['pulso']-1]-1]); // Ajustar el volumen como antes.
+            sonidos[tambor].play();
+          } else if(indiceSonido!=-1) {
+            console.error("Índice de sonido fuera de rango:", indiceSonido);
+          }
+        }
+      }
+      // ----------------------- CAMBIOS v.2 - fin -----------------------
+
       lista[i].value=pol[i]['pulso'];
-    }
+    } 
   }
   var second=((angulo-1)*Math.PI/(segs/2));
   drawHand(ctx, second, radius*0.9, radius*0.02);

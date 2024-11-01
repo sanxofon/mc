@@ -35,8 +35,11 @@ document.getElementById('clave').onkeyup = function(event){
   }
 };
 // Defaults de Configuración
-volu = [0.5,0.8]; // Volumen default de configuración
-notu = [0,5]; // Nota default de configuración
+volu = [1.0,1.0]; // Volumen default de configuración
+
+// -- VERSION 1.9 con oscilador --
+// notu = [0,5]; // Nota default de configuración
+
 // Canvas y contexto
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -51,7 +54,13 @@ var colores = [
   ['#4e4','#9f9'],
   ['#44e','#99f'],
 ];
+// ----------------------- CAMBIOS v.2 - ini -----------------------
+// -- VERSION 1.9 con oscilador --
+/*
 var actx = null; // Web audio context
+*/
+// ----------------------- CAMBIOS v.2 - fin -----------------------
+
 var regiones = [];
 var isPlaying = false;
 var radius = canvas.height / 2;
@@ -67,7 +76,7 @@ var segs = Math.round( (duracompas*1000) / ti ); // Pasos en el círculo
 // --------------------------
 var compas = 0;
 var sto;
-var vol = 0.75;
+var vol = 0.8;
 var ss,sti;
 ctx.translate(radius, radius); // Movemos el centro
 var bordep = 0.05; // Porcentaje de borde (0 - 1)
@@ -91,14 +100,16 @@ document.getElementById("compas").value=compas;
 
 document.getElementById("volu1").value=volu[0];
 document.getElementById("volu2").value=volu[1];
-document.getElementById("notu1").value=notu[0];
-document.getElementById("notu2").value=notu[1];
+
+// -- VERSION 1.9 con oscilador --
+// document.getElementById("notu1").value=notu[0];
+// document.getElementById("notu2").value=notu[1];
 
 // --------------------------------------------------
 // Definiciones interfaz ----------
 function interfaz(){
   // Complejas
-  var claNames = ['nmax','octava','tipbip','vol'];
+  var claNames = ['nmax','sonacento','songolpe','vol'];
   var lista;
   for (var j = 0; j < claNames.length; j++) {
     lista = document.getElementsByClassName(claNames[j]);
@@ -128,19 +139,19 @@ function interfaz(){
       };
     }(i));
   }
-  lista = document.getElementsByClassName('octava');
+  lista = document.getElementsByClassName('sonacento');
   for (var i = 0; i < lista.length; ++i) {
     (function(index){
       lista[index].onchange = function() {
-        pol[index]['octava']=this.value;
+        pol[index]['sonacento']=this.value;
       };
     }(i));
   }
-  lista = document.getElementsByClassName('tipbip');
+  lista = document.getElementsByClassName('songolpe');
   for (var i = 0; i < lista.length; ++i) {
     (function(index){
       lista[index].onchange = function() {
-        pol[index]['tipbip']=this.value;
+        pol[index]['songolpe']=this.value;
       };
     }(i));
   }
@@ -151,8 +162,8 @@ function interfaz(){
         pol[index]['vol']=parseFloat(this.value);
       };
       lista[index].ondblclick = function() {
-        this.value=0.5;
-        pol[index]['vol']=0.5;
+        this.value=1.0;
+        pol[index]['vol']=1.0;
       };
     }(i));
   }
@@ -204,8 +215,8 @@ document.getElementById('vol').onchange = function() {
   vol=this.value;
 };
 document.getElementById('vol').ondblclick = function() {
-  this.value = 0.5;
-  vol = 0.5;
+  this.value = 0.8;
+  vol = 0.8;
 };
 document.getElementById('volu1').onchange = function() {
   volu[0]=this.value;
@@ -213,12 +224,15 @@ document.getElementById('volu1').onchange = function() {
 document.getElementById('volu2').onchange = function() {
   volu[1]=this.value;
 };
-document.getElementById('notu1').onchange = function() {
+
+// -- VERSION 1.9 con oscilador --
+/* document.getElementById('notu1').onchange = function() {
   notu[0]=this.value;
 };
 document.getElementById('notu2').onchange = function() {
   notu[1]=this.value;
-};
+}; */
+
 document.getElementById('cpmslide').onchange = function() {
   changeCPM(this.value);
 };
@@ -233,7 +247,12 @@ document.getElementById('playButton').onclick = function() {
     isPlaying=false;
     playStop();
   }else{
+    // ----------------------- CAMBIOS v.2 - ini -----------------------
+    // -- VERSION 1.9 con oscilador --
+    /*
     actx = new AudioContext();
+    */
+    // ----------------------- CAMBIOS v.2 - fin -----------------------
     this.textContent="STOP";
     toggleClass('playButton',"w3-green");
     toggleClass('playButton',"w3-red");

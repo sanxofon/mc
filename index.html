@@ -117,20 +117,20 @@
         <td class="text w3-medium">Vol</td>
       </tr>
       <tr class="w3-large">
-        <td><input title="Octava 1" class="octava" type="number" min="0" max="10" step="1"></td>
-        <td><input title="Octava 2" class="octava" type="number" min="0" max="10" step="1"></td>
-        <td><input title="Octava 3" class="octava" type="number" min="0" max="10" step="1"></td>
-        <td><input title="Octava 4" class="octava" type="number" min="0" max="10" step="1"></td>
-        <td><input title="Octava 5" class="octava" type="number" min="0" max="10" step="1"></td>
-        <td class="text w3-medium">Octava</td>
+        <td><input title="Acento 1" class="sonacento" type="number" min="0" max="8" step="1"></td>
+        <td><input title="Acento 2" class="sonacento" type="number" min="0" max="8" step="1"></td>
+        <td><input title="Acento 3" class="sonacento" type="number" min="0" max="8" step="1"></td>
+        <td><input title="Acento 4" class="sonacento" type="number" min="0" max="8" step="1"></td>
+        <td><input title="Acento 5" class="sonacento" type="number" min="0" max="8" step="1"></td>
+        <td class="text w3-medium">Acento</td>
       </tr>
       <tr class="w3-large fondo1">
-        <td><input title="Tipo 1" class="tipbip" type="number" min=0 max=3 step=1></td>
-        <td><input title="Tipo 2" class="tipbip" type="number" min=0 max=3 step=1></td>
-        <td><input title="Tipo 3" class="tipbip" type="number" min=0 max=3 step=1></td>
-        <td><input title="Tipo 4" class="tipbip" type="number" min=0 max=3 step=1></td>
-        <td><input title="Tipo 5" class="tipbip" type="number" min=0 max=3 step=1></td>
-        <td class="text w3-medium">Tipo</td>
+        <td><input title="Tipo 1" class="songolpe" type="number" min=0 max=8 step=1></td>
+        <td><input title="Tipo 2" class="songolpe" type="number" min=0 max=8 step=1></td>
+        <td><input title="Tipo 3" class="songolpe" type="number" min=0 max=8 step=1></td>
+        <td><input title="Tipo 4" class="songolpe" type="number" min=0 max=8 step=1></td>
+        <td><input title="Tipo 5" class="songolpe" type="number" min=0 max=8 step=1></td>
+        <td class="text w3-medium">Golpe</td>
       </tr>
     </table>
 
@@ -153,7 +153,7 @@
     </div>
   </div>
   <div class="w3-text-grey w3-center w3-small bg101010;">
-    <div><b>Metrónomo irregular polirrítmico</b> v1.9</div>
+    <div><b>Metrónomo irregular polirrítmico</b> v2.0</div>
     <div>Creado por <a rel="noopener" href="https://lengua.la" target="_blank" title="(2018-2024)">Santiago C. Novaro</a></div>
   </div>
 </div>
@@ -170,10 +170,10 @@
       <div class="w3-padding bordegris">
         <table class="w3-large tblgolpes">
           <tr>
-            <td class="right">Golpe:</td><td><select title="Nota Golpe" id="notu1"><option value="0" selected>A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7">E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td><td><input title="Volumen Golpe" class="small" type="range" id="volu1" min="0" max="1" step="0.05" value="0.5"></td>
+            <td class="right">Golpe: &nbsp; </td><!-- VERSION 1.9 con oscilador --><!-- <td><select title="Nota Golpe" id="notu1"><option value="0" selected>A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7">E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td> --><td><input title="Volumen Golpe" class="small" type="range" id="volu1" min="0" max="1" step="0.05" value="1.0"></td>
           </tr>
           <tr>
-            <td class="right">Acento:</td><td><select title="Nota Acento" id="notu2"><option value="0">A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7" selected>E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td><td><input title="Volumen Acento" class="small" type="range" id="volu2" min="0" max="1" step="0.05" value="1.0"></td>
+            <td class="right">Acento: &nbsp; </td><!-- VERSION 1.9 con oscilador --><!-- <td><select title="Nota Acento" id="notu2"><option value="0">A</option><option value="1">A#</option><option value="2">B</option><option value="3">C</option><option value="4">C#</option><option value="5">D</option><option value="6">D#</option><option value="7" selected>E</option><option value="8">F</option><option value="9">F#</option><option value="10">G</option><option value="11">G#</option><option value="12">AUTO</option></select></td> --><td><input title="Volumen Acento" class="small" type="range" id="volu2" min="0" max="1" step="0.05" value="1.0"></td>
           </tr>
         </table>
       </div>
@@ -183,6 +183,23 @@
 
   </div>
 </div>
+
+<!-- ----------------------- CAMBIOS v.2 - ini ----------------------- -->
+<!-- VERSION 2.0 con Howler.js -->
+<script src="./beats.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+<script>
+// Sonidos Howler
+let sonidos = [];
+for (let i = 0; i < base64Beat.length; i++) {
+  sonidos.push(new Howl({
+    src: [base64Beat[i]], // Usar el lista base64Beat
+    format: ['mp3'],      // Especificar el formato
+    preload: true,        // Precargar los sonidos !!
+  }));
+}
+</script>
+<!-- ----------------------- CAMBIOS v.2 - fin ----------------------- -->
 
 <script type="text/javascript">
   // Este código verifica si la API del service worker está disponible. Si está disponible, se registra el service worker de /mc/sw.js una vez que se carga la página.
@@ -217,46 +234,46 @@
     {
       'activo':false,
       'nmax':11,
-      'octava':5,
-      'tipbip':3,
+      'sonacento':0,
+      'songolpe':1,
       'pulso':0,
-      'vol':0.5,
+      'vol':1.0,
       'patron':[2,1,1,1,1,1,1,1,1,1,1],
     },
     {
       'activo':false,
       'nmax':7,
-      'octava':4,
-      'tipbip':3,
+      'sonacento':2,
+      'songolpe':3,
       'pulso':0,
-      'vol':0.5,
+      'vol':1.0,
       'patron':[2,1,1,1,1,1,1],
     },
     {
       'activo':true,
       'nmax':5,
-      'octava':4,
-      'tipbip':3,
+      'sonacento':4,
+      'songolpe':5,
       'pulso':0,
-      'vol':0.5,
+      'vol':1.0,
       'patron':[2,1,1,1,1],
     },
     {
       'activo':true,
       'nmax':3,
-      'octava':3,
-      'tipbip':3,
+      'sonacento':6,
+      'songolpe':7,
       'pulso':0,
-      'vol':0.5,
+      'vol':1.0,
       'patron':[2,1,1],
     },
     {
       'activo':false,
       'nmax':2,
-      'octava':2,
-      'tipbip':3,
+      'sonacento':8,
+      'songolpe':8,
       'pulso':0,
-      'vol':0.5,
+      'vol':1.0,
       'patron':[2,0],
     }
   ];
