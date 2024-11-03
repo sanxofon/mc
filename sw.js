@@ -140,7 +140,7 @@ self.addEventListener('fetch', function(event) {
 */
 self.addEventListener('activate', function(event) {
 
-  var cacheWhitelist = ['metronomo-cache-v1-91']; //, 'blog-posts-cache-v1'];
+  var cacheWhitelist = ['metronomo-cache-v2-1']; //, 'blog-posts-cache-v1'];
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {

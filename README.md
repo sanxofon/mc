@@ -9,6 +9,12 @@ Un metrónomo polirrítmico e irregular para músicos, creado como una PWA (Prog
 
 Puedes probar la demo en vivo aquí: [https://sanxofon.github.io/mc/](https://sanxofon.github.io/mc/)
 
+## Versión 2.2 en desarrollo
+
+Esta versión intenta corregir el *bug* de la versión anterior:
+
+* **Webworker para el loop:**  Quiero utilizar un *webworker* específicamente para continuar el loop en segundo plano cuando la ventana pierde el foco.
+
 ## Novedades de la versión 2.1
 
 Esta versión (v2.1) introduce algunas mejoras con respecto a la versión anterior (v2.0 - [enlace a v2.0](https://github.com/sanxofon/mc/tree/v2.0)):
