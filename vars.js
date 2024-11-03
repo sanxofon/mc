@@ -75,7 +75,10 @@ var duracompas = 60/cpm; // Duración del compás en segundos
 var segs = Math.round( (duracompas*1000) / ti ); // Pasos en el círculo
 // --------------------------
 var compas = 0;
-var sto;
+
+// var sto; // Version 2.0
+let animationFrameId = null; // Version 2.1
+
 var vol = 0.8;
 var ss,sti;
 ctx.translate(radius, radius); // Movemos el centro

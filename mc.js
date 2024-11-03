@@ -83,26 +83,35 @@ function getMousePos(c, e) {
 // FUNCIONES ----------------------
 function playStart() {
   // Loop del intervalo
-  clearInterval(sto);
+  // clearInterval(sto); // Versión 2.0
+  cancelAnimationFrame(animationFrameId); // Versión 2.1
+  
   clearTiempo();
   angulo = 0;
   for (var i = 0; i < pol.length; i++) {
     var e = i-(-1);
     pol[i]['pulso'] = 0;
   }
-  drawClock();
+
+  // Inicia el loop
+  // drawClock(); // Versión 2.0
+  animationFrameId = requestAnimationFrame(drawClock); // Versión 2.1
+
 }
 function playStop() {
   // Loop del intervalo
-  clearInterval(sti);
-  clearInterval(sto);
+  // clearInterval(sti); // Versión 2.0
+  // clearInterval(sto); // Versión 2.0
+  cancelAnimationFrame(animationFrameId); // Versión 2.1
 }
 
 // Funciones del reloj
 function drawClock() {
+  // if (!isPlaying) return; // Version 2.1
   var redo=true;
   if(!isPlaying)redo=false;
-  clearInterval(sto);
+  // clearInterval(sto); // Versión 2.0
+  cancelAnimationFrame(animationFrameId); // Versión 2.1
   localStorage.setItem('polMC', JSON.stringify(pol));
   localStorage.setItem('claveMC', JSON.stringify(clave));
   drawFace(ctx, radius);
@@ -113,8 +122,11 @@ function drawClock() {
     if(pol[i]['activo'])drawNumbers(ctx, radius*((5-i)/5), pol[i]['nmax'], angulo, i);
   }
   var t = tiempo();
-  // console.log('drawClock:',ti,t);
-  if(redo)sto=setTimeout(drawClock,t);
+  // Aquí se hace el loop!!
+  if (redo) {
+    // sto=setTimeout(drawClock,t); // Versión 2.0 usa "setTimeout"
+    animationFrameId = requestAnimationFrame(drawClock); // Versión 2.1 usa "requestAnimationFrame"
+  }
 }
 
 // Dibuja la cara del reloj
@@ -281,7 +293,7 @@ function playSync(n=20) {
   sti = setTimeout(syncStart,ti);
 }
 function syncStart() {
-  clearInterval(sti);
+  // clearInterval(sti); // Versión 2.0
   var s = new Date().getTime();
   document.getElementById('ss').value=Math.round((ss-s)/1000);
   if(ss<=s)playStart();

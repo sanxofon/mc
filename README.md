@@ -9,13 +9,27 @@ Un metrónomo polirrítmico e irregular para músicos, creado como una PWA (Prog
 
 Puedes probar la demo en vivo aquí: [https://sanxofon.github.io/mc/](https://sanxofon.github.io/mc/)
 
-## Novedades en la versión 2.0
+## Novedades de la versión 2.1
 
-Esta versión (v2.0) introduce las siguientes mejoras con respecto a la versión anterior (v1.9 - [enlace a v1.9](https://github.com/sanxofon/mc/tree/v1.9)):
+Esta versión (v2.1) introduce algunas mejoras con respecto a la versión anterior (v2.0 - [enlace a v2.0](https://github.com/sanxofon/mc/tree/v2.0)):
+
+* **Lógica más estable en el loop:**  Ahora se utiliza requestAnimationFrame en vez de setTimeout para generar el loop.
+* **Se han corregido errores generales** Algunos textos en configuración se han corregido y se ha agregado la posibilidad de escuchar los distintos *sonidos* disponibles.
+
+### BUGS de esta versión
+
+- **El metrónomo se detiene cuando la ventana/pestaña del navegador pierde el foco** El problema es que requestAnimationFrame depende del bucle de renderizado del navegador y, si el navegador no está renderizando activamente, la animación no continuará.
+
+## Novedades de la versión 2.0
+
+La versión (v2.0) introduce importantes mejoras con respecto a la versión anterior (v1.9 - [enlace a v1.9](https://github.com/sanxofon/mc/tree/v1.9)):
 
 * **Sonidos MP3:**  Se reemplazó el oscilador por la librería Howler.js para reproducir sonidos MP3 reales.  Esto proporciona una mayor variedad de sonidos y una experiencia más rica para el músico.
 * **Control de sonido por pista:**  Los parámetros "Octava" y "Tipo" ahora se utilizan para seleccionar el sonido de golpe y acento para cada pista individualmente.  Esto ofrece una flexibilidad mucho mayor para crear patrones rítmicos complejos y personalizados.
 
+### BUGS de esta versión
+
+- **Comúnmente el loop se arruina** Se acelera mucho o desacelera por falta de poder en el CPU. El método de SetTimeout para hacer el loop no es confiable.
 
 ## Características
 

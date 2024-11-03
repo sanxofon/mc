@@ -5,7 +5,7 @@
   El método event.waitUntil() toma una promesa y la usa para saber 
     cuánto tarda la instalación y si se realizó correctamente.
 */
-var CACHE_NAME = 'metronomo-cache-v2.0';
+var CACHE_NAME = 'metronomo-cache-v2.1';
 var urlsToCache = [
   '/mc/',
   'mathjs-rythm.class.js',
